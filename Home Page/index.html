@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta-name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roomify - Find Your Next Stay</title>
 
     <!-- Bootstrap & FontAwesome -->
@@ -24,6 +24,7 @@
   cursor: pointer;
   font-size: 22px;
   z-index: 999999;
+  border: none;
 }
 
 /* Chat Window */
@@ -112,9 +113,9 @@
             <div class="d-flex justify-content-between align-items-center py-2">
                 <a class="navbar-brand" href="#">Roomify</a>
                 <div class="d-flex align-items-center gap-2">
-                    <button class="btn btn-sm text-white border-0">EGP</button>
-                    <button class="btn btn-sm text-white border-0 icon-btn">
-                        <i class="fas fa-question-circle"></i>
+                    <button class="btn btn-sm text-white border-0" aria-label="Change currency">EGP</button>
+                    <button class="btn btn-sm text-white border-0 icon-btn" aria-label="Help and support">
+                        <i class="fas fa-question-circle" aria-hidden="true"></i>
                     </button>
                     <a href="../listing-page/listing.html" class="btn btn-sm text-white border-0">List your property</a>
                    <a href="../Roomify-login/login.html" class="btn btn-sm white-btn">Register</a>
@@ -125,9 +126,7 @@
     </div>
 
     <!-- Navigation -->
-    <!-- Navigation -->
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -153,8 +152,6 @@
         </div>
     </div>
 </nav>
-</nav>
-     <!-- Navigation -->
 
     <!-- Hero -->
     <section class="hero">
@@ -165,49 +162,42 @@
     </section>
 
     <!-- Search Card -->
- <!-- Search Card -->
-<div class="container">
-    <div class="search-card">
-        <form id="searchForm" action="listing.html" method="GET">
-            <div class="row g-3">
-                <div class="col-md-3">
-                    <label>Where are you going?</label>
-                    <input type="text" id="destination" name="destination" class="form-control" placeholder="City, hotel, or landmark" required>
-                </div>
+    <div class="container">
+        <div class="search-card">
+            <form id="searchForm" action="listing.html" method="GET">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label>Where are you going?</label>
+                        <input type="text" id="destination" name="destination" class="form-control" placeholder="City, hotel, or landmark" required>
+                    </div>
 
-                <div class="col-md-3">
-                    <label>Check-in date</label>
-                    <input type="date" id="checkin" name="checkin" class="form-control" required>
-                </div>
+                    <div class="col-md-3">
+                        <label>Check-in date</label>
+                        <input type="date" id="checkin" name="checkin" class="form-control" required>
+                    </div>
 
-                <div class="col-md-3">
-                    <label>Check-out date</label>
-                    <input type="date" id="checkout" name="checkout" class="form-control" required>
-                </div>
+                    <div class="col-md-3">
+                        <label>Check-out date</label>
+                        <input type="date" id="checkout" name="checkout" class="form-control" required>
+                    </div>
 
-                <div class="col-md-2">
-                    <label>Guests</label>
-                    <select id="guests" name="guests" class="form-select">
-                        <option value="1">1 guest</option>
-                        <option value="2" selected>2 guests</option>
-                        <option value="3">3 guests</option>
-                        <option value="4">4 guests</option>
-                        <option value="5+">5+ guests</option>
-                    </select>
-                </div>
+                    <div class="col-md-2">
+                        <label>Guests</label>
+                        <select id="guests" name="guests" class="form-select">
+                            <option value="1">1 guest</option>
+                            <option value="2" selected>2 guests</option>
+                            <option value="3">3 guests</option>
+                            <option value="4">4 guests</option>
+                            <option value="5+">5+ guests</option>
+                        </select>
+                    </div>
 
-                <div class="col-md-1 d-flex align-items-end">
-                <a href="../listing-page/listing.html" class="btn btn-search w-100 d-flex justify-content-center align-items-center"
-       style="height: 100%;">
-        <i class="fas fa-search"></i>
-    </a>
-</div>
-
+                    <div class="col-md-1 d-flex align-items-end">
+                        <a href="../listing-page/listing.html" class="btn btn-search w-100 d-flex justify-content-center align-items-center" style="height: 100%;">
+                            <i class="fas fa-search"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-</div>
             </form>
         </div>
     </div>
@@ -547,8 +537,7 @@
    <!-- Chat icon + chat window (paste into Home Page/index.html before </body>) -->
 
 <!-- Chat Icon -->
-<!-- Chatbot Icon -->
-<div id="chat-icon">💬</div>
+<button id="chat-icon" aria-label="Open chat support" type="button">💬</button>
 
 <!-- Chat Window -->
 <div id="chat-box">
@@ -591,43 +580,79 @@ function handleMessage() {
   respond(input.toLowerCase());
 }
 
-function addMessage(sender, text) {
+function addMessage(sender, text, isHTML = false) {
   let messages = document.getElementById("messages");
   let div = document.createElement("div");
   div.className = `message ${sender}`;
-  div.innerHTML = text;
+  
+  // Security: Use textContent for plain text to prevent XSS
+  if (isHTML) {
+    // Only allow specific safe HTML elements
+    const tempDiv = document.createElement("div");
+    tempDiv.textContent = text; // This escapes HTML
+    div.innerHTML = tempDiv.innerHTML; // Now safe
+  } else {
+    div.textContent = text;
+  }
+  
   messages.appendChild(div);
-
   messages.scrollTop = messages.scrollHeight;
 }
 
-// Chatbot Logic (your correct folder paths)
+// Chatbot Logic - Secure version with proper link creation
 function respond(msg) {
+  let messages = document.getElementById("messages");
+  let div = document.createElement("div");
+  div.className = "message bot";
+  
+  let textContent = document.createElement("div");
+  let link;
+  
   if (msg.includes("profile")) {
-    addMessage("bot", `Here is your profile link:<br>
-      <a href="../profile and bookings/profile&bookings.html" target="_blank">Go to Profile</a>`);
+    textContent.textContent = "Here is your profile link: ";
+    link = document.createElement("a");
+    link.href = "../profile and bookings/profile&bookings.html";
+    link.target = "_blank";
+    link.textContent = "Go to Profile";
+    link.style.color = "#007bff";
+    link.style.textDecoration = "underline";
+    div.appendChild(textContent);
+    div.appendChild(link);
   }
   else if (msg.includes("booking") || msg.includes("book")) {
-    addMessage("bot", `Here is the booking form:<br>
-      <a href="../Booking Form/booking-form.html" target="_blank">Open Booking Form</a>`);
+    textContent.textContent = "Here is the booking form: ";
+    link = document.createElement("a");
+    link.href = "../Booking Form/booking-form.html";
+    link.target = "_blank";
+    link.textContent = "Open Booking Form";
+    link.style.color = "#007bff";
+    link.style.textDecoration = "underline";
+    div.appendChild(textContent);
+    div.appendChild(link);
   }
   else if (msg.includes("logout") || msg.includes("log out")) {
-    addMessage("bot", `You can log out here:<br>
-      <a href="../Home Page/index.html">Log Out</a>`);
+    textContent.textContent = "You can log out here: ";
+    link = document.createElement("a");
+    link.href = "../Home Page/index.html";
+    link.textContent = "Log Out";
+    link.style.color = "#007bff";
+    link.style.textDecoration = "underline";
+    div.appendChild(textContent);
+    div.appendChild(link);
   }
   else {
-    addMessage("bot", `I can help you with:<br>
-      • Profile<br>
-      • Booking Form<br>
-      • Log Out<br><br>
-      Just type one of them.`);
+    const helpText = document.createTextNode("I can help you with:\n• Profile\n• Booking Form\n• Log Out\n\nJust type one of them.");
+    div.appendChild(helpText);
   }
+  
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
 }
 
 
 // Greet on start
 setTimeout(() => {
-  addMessage("bot", "Hello! Do you want to go to Profile, Booking Form, or Log Out?");
+  addMessage("bot", "Hello! Do you want to go to Profile, Booking Form, or Log Out?", false);
 }, 500);
 </script>
 

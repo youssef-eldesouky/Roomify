@@ -21,15 +21,69 @@ signUpToggle.addEventListener('click', function() {
 // Sign In Form Handler
 document.getElementById('signInForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    const email = document.getElementById('signInEmail').value;
+    const email = document.getElementById('signInEmail').value.trim();
     const password = document.getElementById('signInPassword').value;
+    const submitButton = this.querySelector('button[type="submit"]');
     
-    // Here you would typically send this to your backend
-    console.log('Sign In attempt:', { email, password });
-    alert('Sign In attempt with email: ' + email);
+    // Basic validation
+    if (!email || !password) {
+        showErrorMessage('Please fill in all required fields');
+        return;
+    }
     
-    // In a real application, you would make an API call here
-    // Example: fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) })
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showErrorMessage('Please enter a valid email address');
+        return;
+    }
+    
+    // Disable button and show loading state
+    submitButton.disabled = true;
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Signing in...';
+    
+    // Simulate API call (replace with actual API call in production)
+    setTimeout(() => {
+        // Store user session (for demo purposes - use secure tokens in production)
+        const userData = {
+            email: email,
+            isLoggedIn: true,
+            loginTime: new Date().toISOString()
+        };
+        localStorage.setItem('roomifyUser', JSON.stringify(userData));
+        
+        // Show success message
+        showSuccessMessage('Login successful! Redirecting...');
+        
+        // Redirect to homepage after short delay
+        setTimeout(() => {
+            window.location.href = '../Home Page/index.html';
+        }, 1000);
+    }, 800);
+    
+    // In a real application, you would make an API call here:
+    // fetch('/api/login', { 
+    //     method: 'POST', 
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ email, password }) 
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     if (data.success) {
+    //         localStorage.setItem('roomifyUser', JSON.stringify(data.user));
+    //         window.location.href = '../Home Page/index.html';
+    //     } else {
+    //         showErrorMessage(data.message || 'Login failed');
+    //         submitButton.disabled = false;
+    //         submitButton.textContent = originalText;
+    //     }
+    // })
+    // .catch(error => {
+    //     showErrorMessage('An error occurred. Please try again.');
+    //     submitButton.disabled = false;
+    //     submitButton.textContent = originalText;
+    // });
 });
 
 // Password Toggle Functionality
@@ -65,64 +119,178 @@ document.getElementById('signUpForm').addEventListener('submit', function(e) {
     const phone = document.getElementById('signUpPhone').value.trim();
     const country = document.getElementById('signUpCountry').value;
     const password = document.getElementById('signUpPassword').value;
+    const submitButton = this.querySelector('button[type="submit"]');
     
     // Validate name
     if (name.length < 2) {
-        alert('Please enter your full name (at least 2 characters)');
+        showErrorMessage('Please enter your full name (at least 2 characters)');
         return;
     }
     
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        alert('Please enter a valid email address');
+        showErrorMessage('Please enter a valid email address');
         return;
     }
     
     // Validate phone number (basic validation - at least 10 digits)
     const phoneRegex = /^[\d\s\-\+\(\)]+$/;
     if (!phoneRegex.test(phone) || phone.replace(/\D/g, '').length < 10) {
-        alert('Please enter a valid phone number (at least 10 digits)');
+        showErrorMessage('Please enter a valid phone number (at least 10 digits)');
         return;
     }
     
     // Validate country
     if (!country) {
-        alert('Please select your country');
+        showErrorMessage('Please select your country');
         return;
     }
     
     // Validate password length (8+ characters)
     if (password.length < 8) {
-        alert('Password must be at least 8 characters long!');
+        showErrorMessage('Password must be at least 8 characters long!');
         return;
     }
     
-    // Here you would typically send this to your backend
-    const userData = {
-        name,
-        email,
-        phone,
-        country,
-        password
-    };
+    // Disable button and show loading state
+    submitButton.disabled = true;
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Creating account...';
     
-    console.log('Sign Up attempt:', userData);
-    alert('Account creation attempt for: ' + name + ' (' + email + ')');
+    // Simulate API call (replace with actual API call in production)
+    setTimeout(() => {
+        // Store user session (for demo purposes - use secure tokens in production)
+        const userData = {
+            name: name,
+            email: email,
+            phone: phone,
+            country: country,
+            isLoggedIn: true,
+            signupTime: new Date().toISOString()
+        };
+        localStorage.setItem('roomifyUser', JSON.stringify(userData));
+        
+        // Show success message
+        showSuccessMessage('Account created successfully! Redirecting...');
+        
+        // Redirect to homepage after short delay
+        setTimeout(() => {
+            window.location.href = '../Home Page/index.html';
+        }, 1000);
+    }, 1000);
     
-    // In a real application, you would make an API call here
-    // Example: fetch('/api/register', { 
+    // In a real application, you would make an API call here:
+    // fetch('/api/register', { 
     //     method: 'POST', 
     //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(userData) 
+    //     body: JSON.stringify({ name, email, phone, country, password }) 
     // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     if (data.success) {
+    //         localStorage.setItem('roomifyUser', JSON.stringify(data.user));
+    //         showSuccessMessage('Account created successfully! Redirecting...');
+    //         setTimeout(() => {
+    //             window.location.href = '../Home Page/index.html';
+    //         }, 1000);
+    //     } else {
+    //         showErrorMessage(data.message || 'Registration failed');
+    //         submitButton.disabled = false;
+    //         submitButton.textContent = originalText;
+    //     }
+    // })
+    // .catch(error => {
+    //     showErrorMessage('An error occurred. Please try again.');
+    //     submitButton.disabled = false;
+    //     submitButton.textContent = originalText;
+    // });
 });
+
+// Success Message Function
+function showSuccessMessage(message) {
+    // Remove existing messages
+    const existingMessage = document.querySelector('.auth-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    // Create success message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'auth-message auth-message-success';
+    messageDiv.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>${message}</span>
+    `;
+    
+    // Insert at the top of the form container
+    const activeForm = document.querySelector('.form-container.active');
+    activeForm.insertBefore(messageDiv, activeForm.firstChild);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.remove();
+        }
+    }, 5000);
+}
+
+// Error Message Function
+function showErrorMessage(message) {
+    // Remove existing messages
+    const existingMessage = document.querySelector('.auth-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    // Create error message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'auth-message auth-message-error';
+    messageDiv.innerHTML = `
+        <i class="fas fa-exclamation-circle"></i>
+        <span>${message}</span>
+    `;
+    
+    // Insert at the top of the form container
+    const activeForm = document.querySelector('.form-container.active');
+    activeForm.insertBefore(messageDiv, activeForm.firstChild);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.remove();
+        }
+    }, 5000);
+}
 
 // Social Login Buttons
 document.querySelectorAll('.social-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         const title = this.getAttribute('title');
-        console.log(title + ' clicked');
-        alert(title + ' clicked');
+        
+        // Show loading state
+        const icon = this.querySelector('i');
+        const originalClass = icon.className;
+        icon.className = 'fas fa-spinner fa-spin';
+        this.disabled = true;
+        
+        // Simulate social login (replace with actual OAuth flow in production)
+        setTimeout(() => {
+            // Store user session for demo
+            const userData = {
+                email: 'social@example.com',
+                isLoggedIn: true,
+                loginTime: new Date().toISOString(),
+                loginMethod: title.replace('Continue with ', '').toLowerCase()
+            };
+            localStorage.setItem('roomifyUser', JSON.stringify(userData));
+            
+            showSuccessMessage('Login successful! Redirecting...');
+            
+            // Redirect to homepage
+            setTimeout(() => {
+                window.location.href = '../Home Page/index.html';
+            }, 1000);
+        }, 1000);
     });
 });
