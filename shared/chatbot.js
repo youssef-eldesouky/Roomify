@@ -6,14 +6,30 @@
 
     // Get current page path to determine relative paths
     function getBasePath() {
-        const currentPath = window.location.pathname;
-        const pathParts = currentPath.split('/').filter(part => part && part !== '');
+        // Get the current file path
+        const currentUrl = window.location.href;
+        const isFileProtocol = currentUrl.startsWith('file://');
         
-        // Remove filename
-        pathParts.pop();
+        let pathParts;
+        if (isFileProtocol) {
+            // For file:// protocol, extract the path
+            // file:///C:/Users/PC/Desktop/Roomify-Frontend/Home Page/index.html
+            const pathWithoutProtocol = currentUrl.replace('file:///', '');
+            pathParts = pathWithoutProtocol.split('/').filter(part => part && part !== '');
+        } else {
+            // For http/https, use pathname
+            const currentPath = window.location.pathname;
+            pathParts = currentPath.split('/').filter(part => part && part !== '');
+        }
         
-        // Count depth from root
-        const depth = pathParts.length;
+        // Remove filename (last part that contains .html)
+        if (pathParts.length > 0 && pathParts[pathParts.length - 1].includes('.html')) {
+            pathParts.pop();
+        }
+        
+        // Count depth from root (excluding drive letter on Windows)
+        // On Windows with file://, first part is like "C:" which we should count
+        let depth = pathParts.length;
         
         // Determine base path
         let basePath = '';
@@ -24,13 +40,88 @@
         return basePath || './';
     }
 
+    // Helper function to resolve relative path to absolute URL
+    function resolvePath(relativePath) {
+        // If it's already an absolute URL, return it
+        if (relativePath.startsWith('http://') || relativePath.startsWith('https://') || relativePath.startsWith('file://')) {
+            return relativePath;
+        }
+        
+        // Get the current URL
+        const currentUrl = window.location.href;
+        const isFileProtocol = currentUrl.startsWith('file://');
+        
+        if (isFileProtocol) {
+            // For file:// protocol, we need to manually resolve the path
+            // Step 1: Get the full path without the protocol
+            // file:///C:/Users/PC/Desktop/Roomify-Frontend/Home Page/index.html
+            // becomes: C:/Users/PC/Desktop/Roomify-Frontend/Home Page/index.html
+            let currentPath = currentUrl.replace('file:///', '');
+            
+            // Step 2: Get the directory of the current file (remove filename)
+            const lastSlash = currentPath.lastIndexOf('/');
+            const currentDir = currentPath.substring(0, lastSlash + 1);
+            // currentDir: C:/Users/PC/Desktop/Roomify-Frontend/Home Page/
+            
+            // Step 3: Combine current directory with relative path
+            // relativePath might be: ../profile and bookings/profile&bookings.html
+            // combined: C:/Users/PC/Desktop/Roomify-Frontend/Home Page/../profile and bookings/profile&bookings.html
+            let combined = currentDir + relativePath;
+            
+            // Step 4: Normalize by resolving ../ and ./
+            // Split into segments, but preserve the structure
+            const segments = combined.split('/');
+            const result = [];
+            
+            for (let i = 0; i < segments.length; i++) {
+                const seg = segments[i];
+                
+                if (seg === '..') {
+                    // Go up one level, but protect the drive letter
+                    if (result.length > 0) {
+                        const last = result[result.length - 1];
+                        // Don't remove if it's a drive letter (C:, D:, etc.)
+                        if (last && last.endsWith(':')) {
+                            // Can't go above drive root, so ignore this ..
+                            continue;
+                        } else {
+                            result.pop();
+                        }
+                    }
+                } else if (seg !== '.' && seg !== '') {
+                    // Add normal segment
+                    result.push(seg);
+                }
+                // Ignore empty strings and '.'
+            }
+            
+            // Step 5: Reconstruct the path
+            // result: ['C:', 'Users', 'PC', 'Desktop', 'Roomify-Frontend', 'profile and bookings', 'profile&bookings.html']
+            const resolvedPath = result.join('/');
+            
+            // Step 6: Return as file:// URL
+            // file:///C:/Users/PC/Desktop/Roomify-Frontend/profile and bookings/profile&bookings.html
+            return 'file:///' + resolvedPath;
+        } else {
+            // For http/https, use standard URL resolution
+            try {
+                return new URL(relativePath, window.location.href).href;
+            } catch (e) {
+                // Fallback: construct path manually
+                const base = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+                return base + relativePath;
+            }
+        }
+    }
+
     // Navigation paths - adjusted based on current page location
     const basePath = getBasePath();
     
     // Determine if we're on the homepage
-    const isHomePage = window.location.pathname.includes('Home Page') || 
-                       window.location.pathname.includes('index.html') ||
-                       (window.location.pathname.split('/').filter(p => p).length <= 1);
+    const currentPath = window.location.pathname || window.location.href;
+    const isHomePage = currentPath.includes('Home Page') || 
+                       currentPath.includes('index.html') ||
+                       (currentPath.split('/').filter(p => p && !p.includes('.html')).length <= 1);
     
     const navigation = {
         homepage: isHomePage ? 'index.html' : basePath + 'Home Page/index.html',
@@ -175,12 +266,60 @@
     }
 
     function createButton(text, href, className = 'message-button') {
-        const button = document.createElement('a');
-        button.href = href;
+        const button = document.createElement('button');
         button.className = className;
         button.textContent = text;
+        button.type = 'button';
         button.onclick = function(e) {
+            e.preventDefault();
             e.stopPropagation();
+            
+            // Get current URL
+            const currentUrl = window.location.href;
+            const isFileProtocol = currentUrl.startsWith('file://');
+            
+            if (isFileProtocol) {
+                // For file:// protocol, manually construct the absolute path
+                // Get the current path without protocol
+                const currentPath = currentUrl.replace('file:///', '');
+                
+                // Get the directory of current file
+                const lastSlash = currentPath.lastIndexOf('/');
+                const currentDir = currentPath.substring(0, lastSlash + 1);
+                
+                // Combine with relative path
+                let combined = currentDir + href;
+                
+                // Normalize: resolve ../
+                const parts = combined.split('/');
+                const resolved = [];
+                
+                for (let i = 0; i < parts.length; i++) {
+                    if (parts[i] === '..') {
+                        if (resolved.length > 0 && !resolved[resolved.length - 1].endsWith(':')) {
+                            resolved.pop();
+                        }
+                    } else if (parts[i] !== '.' && parts[i] !== '') {
+                        resolved.push(parts[i]);
+                    }
+                }
+                
+                // Reconstruct full path
+                const finalPath = resolved.join('/');
+                const targetUrl = 'file:///' + finalPath;
+                
+                window.location.href = targetUrl;
+            } else {
+                // For http/https, use standard resolution
+                try {
+                    const resolvedPath = resolvePath(href);
+                    window.location.href = resolvedPath;
+                } catch (error) {
+                    // Fallback
+                    const currentDir = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+                    window.location.href = currentDir + href;
+                }
+            }
         };
         return button;
     }
