@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roomify - Complete Your Booking</title>
+
+    <!-- Bootstrap & FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Header Bar -->
+    <div class="top-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center py-2">
+                <a class="navbar-brand" href="../Home Page/index.html">Roomify</a>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-sm text-white border-0">EGP</button>
+                    <button class="btn btn-sm text-white border-0 icon-btn">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                    <button class="btn btn-sm text-white border-0">List your property</button>
+                    <button class="btn btn-sm white-btn">Register</button>
+                    <button class="btn btn-sm white-btn">Sign in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="../Home Page/index.html"><i class="fas fa-bed"></i> Stays</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Flights/flights.html"><i class="fas fa-plane"></i> Flights</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Car Rentals/car-rentals.html"><i class="fas fa-car"></i> Car rentals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Attractions/attractions.html"><i class="fas fa-suitcase"></i> Attractions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Airport Taxis/airport-taxis.html"><i class="fas fa-taxi"></i> Airport taxis</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Booking Form Section -->
+    <section class="booking-section">
+        <div class="container">
+            <div class="row">
+                <!-- Main Booking Form -->
+                <div class="col-lg-8">
+                    <div class="booking-card">
+                        <div class="booking-header">
+                            <h2><i class="fas fa-calendar-check"></i> Complete Your Booking</h2>
+                            <p class="text-muted">Please fill in your details to confirm your reservation</p>
+                        </div>
+
+                        <form id="bookingForm" novalidate>
+                            <!-- Personal Information -->
+                            <div class="form-section">
+                                <h5 class="section-title"><i class="fas fa-user"></i> Personal Information</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                        <div class="invalid-feedback">Please provide your first name.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                        <div class="invalid-feedback">Please provide your last name.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" required>
+                                        <div class="invalid-feedback">Please provide a valid email address.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                        <input type="tel" class="form-control" id="phone" required>
+                                        <div class="invalid-feedback">Please provide your phone number.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Booking Details -->
+                            <div class="form-section">
+                                <h5 class="section-title"><i class="fas fa-bed"></i> Booking Details</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="destination" class="form-label">Destination <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="destination" placeholder="City, hotel, or landmark" required>
+                                        <div class="invalid-feedback">Please select a destination.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="propertyType" class="form-label">Property Type <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="propertyType" required>
+                                            <option value="">Select property type</option>
+                                            <option value="hotel">Hotel</option>
+                                            <option value="apartment">Apartment</option>
+                                            <option value="villa">Villa</option>
+                                            <option value="resort">Resort</option>
+                                            <option value="bed-breakfast">Bed & Breakfast</option>
+                                            <option value="guest-house">Guest House</option>
+                                            <option value="hostel">Hostel</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a property type.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="checkIn" class="form-label">Check-in Date <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="checkIn" required>
+                                        <div class="invalid-feedback">Please select a check-in date.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="checkOut" class="form-label">Check-out Date <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="checkOut" required>
+                                        <div class="invalid-feedback">Please select a check-out date.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="guests" class="form-label">Number of Guests <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="guests" required>
+                                            <option value="">Select guests</option>
+                                            <option value="1">1 Guest</option>
+                                            <option value="2" selected>2 Guests</option>
+                                            <option value="3">3 Guests</option>
+                                            <option value="4">4 Guests</option>
+                                            <option value="5">5 Guests</option>
+                                            <option value="6+">6+ Guests</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select number of guests.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="rooms" class="form-label">Number of Rooms <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="rooms" required>
+                                            <option value="">Select rooms</option>
+                                            <option value="1" selected>1 Room</option>
+                                            <option value="2">2 Rooms</option>
+                                            <option value="3">3 Rooms</option>
+                                            <option value="4">4 Rooms</option>
+                                            <option value="5+">5+ Rooms</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select number of rooms.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="roomType" class="form-label">Room Type</label>
+                                        <select class="form-select" id="roomType">
+                                            <option value="">Select room type</option>
+                                            <option value="single">Single Room</option>
+                                            <option value="double">Double Room</option>
+                                            <option value="twin">Twin Room</option>
+                                            <option value="suite">Suite</option>
+                                            <option value="deluxe">Deluxe Room</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Payment Information -->
+                            <div class="form-section">
+                                <h5 class="section-title"><i class="fas fa-credit-card"></i> Payment Information</h5>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label for="cardName" class="form-label">Name on Card <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="cardName" placeholder="Full name as shown on card" required>
+                                        <div class="invalid-feedback">Please provide the name on card.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="cardNumber" class="form-label">Card Number <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                        <div class="invalid-feedback">Please provide a valid card number.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="expiryMonth" class="form-label">Expiry Month <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="expiryMonth" required>
+                                            <option value="">Month</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select expiry month.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="expiryYear" class="form-label">Expiry Year <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="expiryYear" required>
+                                            <option value="">Year</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select expiry year.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="cvv" class="form-label">CVV <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="cvv" placeholder="123" maxlength="4" required>
+                                        <div class="invalid-feedback">Please provide CVV.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Special Requests -->
+                            <div class="form-section">
+                                <h5 class="section-title"><i class="fas fa-comment-alt"></i> Special Requests</h5>
+                                <div class="mb-3">
+                                    <label for="specialRequests" class="form-label">Additional Information</label>
+                                    <textarea class="form-control" id="specialRequests" rows="4" placeholder="Any special requests or additional information (optional)"></textarea>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newsletter">
+                                    <label class="form-check-label" for="newsletter">
+                                        Subscribe to our newsletter for exclusive deals and offers
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-actions">
+                                <a href="../profile and bookings/profile&bookings.html" class="btn btn-primary btn-booking">
+                                <i class="fas fa-lock"></i> Confirm Booking
+                                </a>
+
+                                </button>
+                                <a href="../Home Page/index.html" class="btn btn-secondary btn-back">
+                                <i class="fas fa-arrow-left"></i> Back
+                                </a>
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Booking Summary Sidebar -->
+                <div class="col-lg-4">
+                    <div class="booking-summary">
+                        <h5 class="summary-title"><i class="fas fa-receipt"></i> Booking Summary</h5>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">Destination</div>
+                            <div class="summary-value" id="summaryDestination">-</div>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">Check-in</div>
+                            <div class="summary-value" id="summaryCheckIn">-</div>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">Check-out</div>
+                            <div class="summary-value" id="summaryCheckOut">-</div>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">Guests</div>
+                            <div class="summary-value" id="summaryGuests">-</div>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">Rooms</div>
+                            <div class="summary-value" id="summaryRooms">-</div>
+                        </div>
+                        
+                        <div class="summary-divider"></div>
+                        
+                        <div class="summary-item summary-total">
+                            <div class="summary-label">Total Amount</div>
+                            <div class="summary-value" id="summaryTotal">EGP 0.00</div>
+                        </div>
+                        
+                        <div class="summary-note">
+                            <i class="fas fa-info-circle"></i>
+                            <small>Prices include taxes and fees. Free cancellation up to 24 hours before check-in.</small>
+                        </div>
+                    </div>
+
+                    <!-- Security Badge -->
+                    <div class="security-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <strong>Secure Booking</strong>
+                            <small>Your payment information is encrypted and secure</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-3 mb-4">
+                    <h5>Company</h5>
+                    <a href="javascript:void(0);">About Us</a>
+                    <a href="javascript:void(0);">Project Overview</a>
+                    <a href="javascript:void(0);">Documentation</a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Support</h5>
+                    <a href="javascript:void(0);">User Guide</a>
+                    <a href="javascript:void(0);">Technical Support</a>
+                    <a href="javascript:void(0);">Contact Form</a>
+                    <a href="javascript:void(0);">Feedback</a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Resources</h5>
+                    <a href="javascript:void(0);">API Documentation</a>
+                    <a href="javascript:void(0);">Terms of Use</a>
+                    <a href="javascript:void(0);">Privacy Policy</a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-twitter"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-instagram"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Roomify. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Simple Chatbot</title>
+<style>
+/* Chat Icon */
+#chat-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #007bff;
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+/* Chat Window */
+#chat-box {
+  width: 300px;
+  height: 380px;
+  background: white;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #888;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Messages */
+#messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+.message {
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.bot {
+  background: #f1f1f1;
+}
+
+.user {
+  background: #d1e7ff;
+  text-align: right;
+}
+
+/* Input area */
+#input-area {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+
+#user-input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  outline: none;
+}
+
+#send-btn {
+  padding: 8px 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Chat Icon -->
+<div id="chat-icon">💬</div>
+
+<!-- Chat Window -->
+<div id="chat-box">
+  <div id="messages"></div>
+
+  <div id="input-area">
+    <input type="text" id="user-input" placeholder="Type here...">
+    <button id="send-btn">Send</button>
+  </div>
+</div>
+
+<script>
+// Open / Close Chat
+document.getElementById("chat-icon").onclick = () => {
+  const box = document.getElementById("chat-box");
+  box.style.display = box.style.display === "flex" ? "none" : "flex";
+};
+
+// Send Message
+document.getElementById("send-btn").onclick = handleMessage;
+document.getElementById("user-input").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") handleMessage();
+});
+
+function handleMessage() {
+  let input = document.getElementById("user-input").value.trim();
+  if (input === "") return;
+
+  addMessage("user", input);
+  document.getElementById("user-input").value = "";
+
+  respond(input.toLowerCase());
+}
+
+function addMessage(sender, text) {
+  let messages = document.getElementById("messages");
+  let div = document.createElement("div");
+  div.className = `message ${sender}`;
+  div.innerHTML = text;
+  messages.appendChild(div);
+
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// Chatbot Logic
+function respond(msg) {
+  if (msg.includes("profile")) {
+    addMessage("bot", `Here is your profile link:<br><a href="profile.html">Go to Profile</a>`);
+  }
+  else if (msg.includes("booking") || msg.includes("book")) {
+    addMessage("bot", `Here is the booking form:<br><a href="booking.html">Open Booking Form</a>`);
+  }
+  else if (msg.includes("logout") || msg.includes("log out")) {
+    addMessage("bot", `You can log out here:<br><a href="logout.html">Log Out</a>`);
+  }
+  else {
+    addMessage("bot", `I can help you with:<br>
+      • Profile<br>
+      • Booking Form<br>
+      • Log Out<br><br>
+      Just type one of them.`);
+  }
+}
+
+// Greet on start
+setTimeout(() => {
+  addMessage("bot", "Hello! Do you want to go to Profile, Booking Form, or Log Out?");
+}, 500);
+</script>
+
+</body>
+</html>

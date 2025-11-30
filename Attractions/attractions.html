@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roomify - Attractions</title>
+
+    <!-- Bootstrap & FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../Home Page/style.css">
+    <style>
+        .hero {
+            background-image: linear-gradient(rgba(0, 53, 128, 0.6), rgba(0, 53, 128, 0.6)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80');
+        }
+        .attraction-search-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header Bar -->
+    <div class="top-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center py-2">
+                <a class="navbar-brand" href="../Home Page/index.html">Roomify</a>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-sm text-white border-0">EGP</button>
+                    <button class="btn btn-sm text-white border-0 icon-btn">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                    <a href="../listing-page/listing.html" class="btn btn-sm text-white border-0">List your property</a>
+                   <a href="../Roomify-login/login.html" class="btn btn-sm white-btn">Register</a>
+                   <a href="../Roomify-login/login.html" class="btn btn-sm white-btn">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <!-- Main navigation items on the left -->
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="../Home Page/index.html"><i class="fas fa-bed"></i> Stays</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Flights/flights.html"><i class="fas fa-plane"></i> Flights</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Car Rentals/car-rentals.html"><i class="fas fa-car"></i> Car rentals</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="attractions.html"><i class="fas fa-suitcase"></i> Attractions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Airport Taxis/airport-taxis.html"><i class="fas fa-taxi"></i> Airport taxis</a></li>
+                    <li class="nav-item"><a class="nav-link book-btn" href="../Booking Form/booking-form.html"><i class="fas fa-calendar-check"></i> Book Now</a></li>
+                </ul>
+                
+                <!-- Profile button on the far right -->
+                <div class="nav nav-pills">
+                    <a class="nav-link profile-btn" href="../profile and bookings/profile&bookings.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="../Home Page/index.html" class="btn btn-sm white-btn">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Discover Amazing Attractions</h1>
+            <p class="lead">Book tickets to top attractions, tours, and experiences</p>
+        </div>
+    </section>
+
+    <!-- Attraction Search Card -->
+    <div class="container">
+        <div class="attraction-search-card">
+            <form id="attractionSearchForm">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label>Where are you going?</label>
+                        <input type="text" id="attractionLocation" class="form-control" placeholder="City or attraction name" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Date</label>
+                        <input type="date" id="attractionDate" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Travelers</label>
+                        <select id="travelers" class="form-select">
+                            <option value="1">1 traveler</option>
+                            <option value="2" selected>2 travelers</option>
+                            <option value="3">3 travelers</option>
+                            <option value="4">4 travelers</option>
+                            <option value="5+">5+ travelers</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Category</label>
+                        <select id="category" class="form-select">
+                            <option value="all">All</option>
+                            <option value="museums">Museums</option>
+                            <option value="tours">Tours</option>
+                            <option value="activities">Activities</option>
+                            <option value="shows">Shows & Events</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button type="submit" class="btn btn-search w-100 d-flex justify-content-center align-items-center" style="height: 100%;">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Popular Attractions -->
+    <section class="property-types-section">
+        <div class="container">
+            <h2 class="section-title">Popular Attractions</h2>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="property-type-card">
+                        <div class="property-image">
+                            <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400" alt="Museums">
+                        </div>
+                        <div class="property-info">
+                            <h4 class="property-name">Museums</h4>
+                            <p class="property-description">Explore art, history, and culture</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="property-type-card">
+                        <div class="property-image">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400" alt="Tours">
+                        </div>
+                        <div class="property-info">
+                            <h4 class="property-name">City Tours</h4>
+                            <p class="property-description">Guided tours and experiences</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="property-type-card">
+                        <div class="property-image">
+                            <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=400" alt="Adventure">
+                        </div>
+                        <div class="property-info">
+                            <h4 class="property-name">Adventure</h4>
+                            <p class="property-description">Thrilling outdoor activities</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-3 mb-4">
+                    <h5>Company</h5>
+                    <a href="javascript:void(0);">About Us</a>
+                    <a href="javascript:void(0);">Project Overview</a>
+                    <a href="javascript:void(0);">Documentation</a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Support</h5>
+                    <a href="javascript:void(0);">User Guide</a>
+                    <a href="javascript:void(0);">Technical Support</a>
+                    <a href="javascript:void(0);">Contact Form</a>
+                    <a href="javascript:void(0);">Feedback</a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Resources</h5>
+                    <a href="javascript:void(0);">API Documentation</a>
+                    <a href="javascript:void(0);">Terms of Use</a>
+                    <a href="javascript:void(0);">Privacy Policy</a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-twitter"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-instagram"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Roomify. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Set min date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('attractionDate').min = today;
+
+        // Form submission
+        document.getElementById('attractionSearchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Searching for attractions...');
+        });
+    </script>
+</body>
+</html>
+

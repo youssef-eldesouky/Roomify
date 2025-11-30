@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roomify - Airport Taxis</title>
+
+    <!-- Bootstrap & FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../Home Page/style.css">
+    <style>
+        .hero {
+            background-image: linear-gradient(rgba(0, 53, 128, 0.6), rgba(0, 53, 128, 0.6)), url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&q=80');
+        }
+        .taxi-search-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header Bar -->
+    <div class="top-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center py-2">
+                <a class="navbar-brand" href="../Home Page/index.html">Roomify</a>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-sm text-white border-0">EGP</button>
+                    <button class="btn btn-sm text-white border-0 icon-btn">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                    <a href="../listing-page/listing.html" class="btn btn-sm text-white border-0">List your property</a>
+                   <a href="../Roomify-login/login.html" class="btn btn-sm white-btn">Register</a>
+                   <a href="../Roomify-login/login.html" class="btn btn-sm white-btn">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <!-- Main navigation items on the left -->
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="../Home Page/index.html"><i class="fas fa-bed"></i> Stays</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Flights/flights.html"><i class="fas fa-plane"></i> Flights</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Car Rentals/car-rentals.html"><i class="fas fa-car"></i> Car rentals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Attractions/attractions.html"><i class="fas fa-suitcase"></i> Attractions</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="airport-taxis.html"><i class="fas fa-taxi"></i> Airport taxis</a></li>
+                    <li class="nav-item"><a class="nav-link book-btn" href="../Booking Form/booking-form.html"><i class="fas fa-calendar-check"></i> Book Now</a></li>
+                </ul>
+                
+                <!-- Profile button on the far right -->
+                <div class="nav nav-pills">
+                    <a class="nav-link profile-btn" href="../profile and bookings/profile&bookings.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="../Home Page/index.html" class="btn btn-sm white-btn">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Book Your Airport Transfer</h1>
+            <p class="lead">Reliable and comfortable airport taxi services</p>
+        </div>
+    </section>
+
+    <!-- Airport Taxi Search Card -->
+    <div class="container">
+        <div class="taxi-search-card">
+            <form id="taxiSearchForm">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label>Pick-up location</label>
+                        <input type="text" id="taxiPickup" class="form-control" placeholder="Airport or address" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Drop-off location</label>
+                        <input type="text" id="taxiDropoff" class="form-control" placeholder="Hotel or address" required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Date</label>
+                        <input type="date" id="taxiDate" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Time</label>
+                        <input type="time" id="taxiTime" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-1">
+                        <label>Passengers</label>
+                        <select id="taxiPassengers" class="form-select">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5+">5+</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button type="submit" class="btn btn-search w-100 d-flex justify-content-center align-items-center" style="height: 100%;">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Service Features -->
+    <section class="offers-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Airport Taxis</h2>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="offer-card">
+                        <div class="offer-content">
+                            <div class="offer-text">
+                                <span class="offer-category">Reliable Service</span>
+                                <h3 class="offer-title">24/7 Availability</h3>
+                                <p class="offer-description">Book your transfer anytime, day or night</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="offer-card">
+                        <div class="offer-content">
+                            <div class="offer-text">
+                                <span class="offer-category">Fixed Prices</span>
+                                <h3 class="offer-title">No Surprises</h3>
+                                <p class="offer-description">Know your fare upfront, no hidden charges</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="offer-card">
+                        <div class="offer-content">
+                            <div class="offer-text">
+                                <span class="offer-category">Comfortable Rides</span>
+                                <h3 class="offer-title">Modern Fleet</h3>
+                                <p class="offer-description">Clean, comfortable vehicles for all group sizes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-3 mb-4">
+                    <h5>Company</h5>
+                    <a href="javascript:void(0);">About Us</a>
+                    <a href="javascript:void(0);">Project Overview</a>
+                    <a href="javascript:void(0);">Documentation</a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Support</h5>
+                    <a href="javascript:void(0);">User Guide</a>
+                    <a href="javascript:void(0);">Technical Support</a>
+                    <a href="javascript:void(0);">Contact Form</a>
+                    <a href="javascript:void(0);">Feedback</a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Resources</h5>
+                    <a href="javascript:void(0);">API Documentation</a>
+                    <a href="javascript:void(0);">Terms of Use</a>
+                    <a href="javascript:void(0);">Privacy Policy</a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-twitter"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-instagram"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Roomify. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Set min date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('taxiDate').min = today;
+
+        // Form submission
+        document.getElementById('taxiSearchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Searching for airport taxis...');
+        });
+    </script>
+</body>
+</html>
+

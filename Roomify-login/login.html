@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in or register - Roomify</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">Roomify</a>
+            <div class="header-icons">
+                <div class="header-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="signin-container">
+            <div class="form-toggle">
+                <button class="toggle-btn active" id="signInToggle">Sign In</button>
+                <button class="toggle-btn" id="signUpToggle">Register</button>
+            </div>
+
+            <!-- Sign In Form -->
+            <div id="signInFormContainer" class="form-container active">
+                <h1 class="signin-title">Sign in to your account</h1>
+                <p class="signin-subtitle">Enter your credentials to access your Roomify account.</p>
+
+                <form id="signInForm">
+                    <div class="mb-3">
+                        <label for="signInEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="signInEmail" placeholder="Enter your email address" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signInPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="signInPassword" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn-primary-custom">Sign In</button>
+                </form>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div id="signUpFormContainer" class="form-container">
+                <h1 class="signin-title">Create a new account</h1>
+                <p class="signin-subtitle">Join Roomify to start booking amazing accommodations.</p>
+
+                <form id="signUpForm">
+                    <div class="form-grid">
+                        <div class="mb-3">
+                            <label for="signUpName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="signUpName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signUpEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="signUpEmail" placeholder="Enter your email address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signUpPhone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="signUpPhone" placeholder="Enter your phone number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signUpCountry" class="form-label">Country</label>
+                            <select class="form-control" id="signUpCountry" required>
+                                <option value="">Select your country</option>
+                                <option value="US">United States</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="IT">Italy</option>
+                                <option value="ES">Spain</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="BE">Belgium</option>
+                                <option value="CH">Switzerland</option>
+                                <option value="AT">Austria</option>
+                                <option value="SE">Sweden</option>
+                                <option value="NO">Norway</option>
+                                <option value="DK">Denmark</option>
+                                <option value="FI">Finland</option>
+                                <option value="PL">Poland</option>
+                                <option value="PT">Portugal</option>
+                                <option value="GR">Greece</option>
+                                <option value="IE">Ireland</option>
+                                <option value="NZ">New Zealand</option>
+                                <option value="JP">Japan</option>
+                                <option value="KR">South Korea</option>
+                                <option value="CN">China</option>
+                                <option value="IN">India</option>
+                                <option value="BR">Brazil</option>
+                                <option value="MX">Mexico</option>
+                                <option value="AR">Argentina</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="EG">Egypt</option>
+                                <option value="AE">United Arab Emirates</option>
+                                <option value="SA">Saudi Arabia</option>
+                                <option value="TR">Turkey</option>
+                                <option value="RU">Russia</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signUpPassword" class="form-label">Password <span class="password-hint">(8+ characters)</span></label>
+                        <div class="password-input-wrapper">
+                            <input type="password" class="form-control" id="signUpPassword" placeholder="Create a password (min. 8 characters)" required>
+                            <button type="button" class="password-toggle" id="toggleSignUpPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary-custom">Create Account</button>
+                </form>
+            </div>
+
+            <div class="divider">
+                <span>or use one of these options</span>
+            </div>
+
+            <div class="social-buttons">
+                <button class="social-btn" title="Continue with Google">
+                    <i class="fab fa-google google-icon"></i>
+                </button>
+                <button class="social-btn" title="Continue with Apple">
+                    <i class="fab fa-apple apple-icon"></i>
+                </button>
+                <button class="social-btn" title="Continue with Facebook">
+                    <i class="fab fa-facebook-f facebook-icon"></i>
+                </button>
+            </div>
+
+            <div class="signin-footer">
+                <p>
+                    By signing in or creating an account, you agree with our 
+                    <a href="#">Terms & Conditions</a> and 
+                    <a href="#">Privacy Statement</a>
+                </p>
+                <p class="copyright">
+                    All rights reserved.<br>
+                    Copyright (2025) – Roomify™
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
