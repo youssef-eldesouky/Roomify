@@ -4,18 +4,36 @@ const signUpToggle = document.getElementById('signUpToggle');
 const signInFormContainer = document.getElementById('signInFormContainer');
 const signUpFormContainer = document.getElementById('signUpFormContainer');
 
-signInToggle.addEventListener('click', function() {
-    signInToggle.classList.add('active');
-    signUpToggle.classList.remove('active');
-    signInFormContainer.classList.add('active');
-    signUpFormContainer.classList.remove('active');
-});
-
-signUpToggle.addEventListener('click', function() {
+// Function to switch to Register tab
+function switchToRegisterTab() {
     signUpToggle.classList.add('active');
     signInToggle.classList.remove('active');
     signUpFormContainer.classList.add('active');
     signInFormContainer.classList.remove('active');
+}
+
+// Function to switch to Sign In tab
+function switchToSignInTab() {
+    signInToggle.classList.add('active');
+    signUpToggle.classList.remove('active');
+    signInFormContainer.classList.add('active');
+    signUpFormContainer.classList.remove('active');
+}
+
+// Check URL parameter on page load
+window.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('register') !== null || window.location.hash === '#register') {
+        switchToRegisterTab();
+    }
+});
+
+signInToggle.addEventListener('click', function() {
+    switchToSignInTab();
+});
+
+signUpToggle.addEventListener('click', function() {
+    switchToRegisterTab();
 });
 
 // Sign In Form Handler

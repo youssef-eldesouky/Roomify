@@ -11,98 +11,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <style>
-/* Chat Icon */
-#chat-icon {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #007bff;
-  color: white;
-  padding: 15px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 22px;
-  z-index: 999999;
-  border: none;
-}
-
-/* Chat Window */
-#chat-box {
-  width: 300px;
-  height: 380px;
-  background: white;
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #888;
-  display: none;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 999999;
-}
-
-/* Messages */
-#messages {
-  flex: 1;
-  padding: 10px;
-  overflow-y: auto;
-  font-size: 14px;
-}
-
-.message {
-  margin: 8px 0;
-  padding: 8px;
-  border-radius: 5px;
-}
-
-.bot {
-  background: #f1f1f1;
-}
-
-.user {
-  background: #d1e7ff;
-  text-align: right;
-}
-
-/* Input area */
-#input-area {
-  display: flex;
-  border-top: 1px solid #ccc;
-}
-
-#user-input {
-  flex: 1;
-  padding: 8px;
-  border: none;
-  outline: none;
-}
-
-#send-btn {
-  padding: 8px 10px;
-  background: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-.logout-btn {
-  background: white;
-  color: #007bff;
-  border: 2px solid #007bff;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 14px;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.logout-btn:hover {
-  background: #007bff;
-  color: white;
-}
-
-</style>
+    <!-- Chatbot CSS -->
+    <link rel="stylesheet" href="../shared/chatbot.css">
 
 </head>
 <body>
@@ -118,7 +28,7 @@
                         <i class="fas fa-question-circle" aria-hidden="true"></i>
                     </button>
                     <a href="../listing-page/listing.html" class="btn btn-sm text-white border-0">List your property</a>
-                   <a href="../Roomify-login/login.html" class="btn btn-sm white-btn">Register</a>
+                   <a href="../Roomify-login/login.html?register" class="btn btn-sm white-btn">Register</a>
                    <a href="../Roomify-login/login.html" class="btn btn-sm white-btn">Sign in</a>
                 </div>
             </div>
@@ -531,132 +441,26 @@
 
     <!-- Custom JS -->
     <script src="script.js"></script>
-    <!-- Chat icon + chat window (paste into Home Page/index.html before </body>) -->
-
-
-   <!-- Chat icon + chat window (paste into Home Page/index.html before </body>) -->
-
-<!-- Chat Icon -->
-<button id="chat-icon" aria-label="Open chat support" type="button">💬</button>
-
-<!-- Chat Window -->
-<div id="chat-box">
-  <div id="messages"></div>
-
-  <!-- Links Section -->
-  <div id="chat-links">
-    <a href="../profile and bookings/profile&bookings.html" class="chat-link">Go to Profile</a>
-    <a href="../Booking Form/booking-form.html" class="chat-link">Booking Form</a>
-    <a href="../Home Page/index.html" class="chat-link">Log Out</a>
-  </div>
-
-  <!-- Input Section -->
-  <div id="input-area">
-    <input type="text" id="user-input" placeholder="Type here...">
-    <button id="send-btn">Send</button>
-  </div>
-</div>
-
-<script>
-// Open / Close Chat
-document.getElementById("chat-icon").onclick = () => {
-  const box = document.getElementById("chat-box");
-  box.style.display = box.style.display === "flex" ? "none" : "flex";
-};
-
-// Send Message
-document.getElementById("send-btn").onclick = handleMessage;
-document.getElementById("user-input").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") handleMessage();
-});
-
-function handleMessage() {
-  let input = document.getElementById("user-input").value.trim();
-  if (input === "") return;
-
-  addMessage("user", input);
-  document.getElementById("user-input").value = "";
-
-  respond(input.toLowerCase());
-}
-
-function addMessage(sender, text, isHTML = false) {
-  let messages = document.getElementById("messages");
-  let div = document.createElement("div");
-  div.className = `message ${sender}`;
-  
-  // Security: Use textContent for plain text to prevent XSS
-  if (isHTML) {
-    // Only allow specific safe HTML elements
-    const tempDiv = document.createElement("div");
-    tempDiv.textContent = text; // This escapes HTML
-    div.innerHTML = tempDiv.innerHTML; // Now safe
-  } else {
-    div.textContent = text;
-  }
-  
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-// Chatbot Logic - Secure version with proper link creation
-function respond(msg) {
-  let messages = document.getElementById("messages");
-  let div = document.createElement("div");
-  div.className = "message bot";
-  
-  let textContent = document.createElement("div");
-  let link;
-  
-  if (msg.includes("profile")) {
-    textContent.textContent = "Here is your profile link: ";
-    link = document.createElement("a");
-    link.href = "../profile and bookings/profile&bookings.html";
-    link.target = "_blank";
-    link.textContent = "Go to Profile";
-    link.style.color = "#007bff";
-    link.style.textDecoration = "underline";
-    div.appendChild(textContent);
-    div.appendChild(link);
-  }
-  else if (msg.includes("booking") || msg.includes("book")) {
-    textContent.textContent = "Here is the booking form: ";
-    link = document.createElement("a");
-    link.href = "../Booking Form/booking-form.html";
-    link.target = "_blank";
-    link.textContent = "Open Booking Form";
-    link.style.color = "#007bff";
-    link.style.textDecoration = "underline";
-    div.appendChild(textContent);
-    div.appendChild(link);
-  }
-  else if (msg.includes("logout") || msg.includes("log out")) {
-    textContent.textContent = "You can log out here: ";
-    link = document.createElement("a");
-    link.href = "../Home Page/index.html";
-    link.textContent = "Log Out";
-    link.style.color = "#007bff";
-    link.style.textDecoration = "underline";
-    div.appendChild(textContent);
-    div.appendChild(link);
-  }
-  else {
-    const helpText = document.createTextNode("I can help you with:\n• Profile\n• Booking Form\n• Log Out\n\nJust type one of them.");
-    div.appendChild(helpText);
-  }
-  
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-
-// Greet on start
-setTimeout(() => {
-  addMessage("bot", "Hello! Do you want to go to Profile, Booking Form, or Log Out?", false);
-}, 500);
-</script>
-
-
-
+    
+    <!-- Chatbot Component -->
+    <button id="chatbot-icon" aria-label="Open chat support" type="button">
+        <i class="fas fa-comments"></i>
+    </button>
+    <div id="chatbot-box">
+        <div id="chatbot-header">
+            <h4>Roomify Assistant</h4>
+            <button id="chatbot-close" aria-label="Close chat">×</button>
+        </div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input-area">
+            <input type="text" id="chatbot-user-input" placeholder="Type your message..." autocomplete="off">
+            <button id="chatbot-send-btn" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Chatbot JS -->
+    <script src="../shared/chatbot.js"></script>
 </body>
 </html>

@@ -11,6 +11,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Chatbot CSS -->
+    <link rel="stylesheet" href="../shared/chatbot.css">
 </head>
 <body>
     <!-- Top Header Bar -->
@@ -23,9 +25,9 @@
                     <button class="btn btn-sm text-white border-0 icon-btn">
                         <i class="fas fa-question-circle"></i>
                     </button>
-                    <button class="btn btn-sm text-white border-0">List your property</button>
-                    <button class="btn btn-sm white-btn">Register</button>
-                    <button class="btn btn-sm white-btn">Sign in</button>
+                    <a href="../listing-page/listing.html" class="btn btn-sm text-white border-0">List your property</a>
+                    <a href="../Roomify-login/login.html?register" class="btn btn-sm white-btn">Register</a>
+                    <a href="../Roomify-login/login.html" class="btn btn-sm white-btn">Sign in</a>
                 </div>
             </div>
         </div>
@@ -341,6 +343,26 @@
 
     <!-- Custom JS -->
     <script src="script.js"></script>
+    <!-- Chatbot Component -->
+    <button id="chatbot-icon" aria-label="Open chat support" type="button">
+        <i class="fas fa-comments"></i>
+    </button>
+    <div id="chatbot-box">
+        <div id="chatbot-header">
+            <h4>Roomify Assistant</h4>
+            <button id="chatbot-close" aria-label="Close chat">×</button>
+        </div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input-area">
+            <input type="text" id="chatbot-user-input" placeholder="Type your message..." autocomplete="off">
+            <button id="chatbot-send-btn" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Chatbot JS -->
+    <script src="../shared/chatbot.js"></script>
 </body>
 </html>
 
