@@ -263,6 +263,33 @@
         </div>
     </section>
 
+    <!-- Stays Section - Published Listings -->
+    <section class="stays-section" id="stays-section">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="section-title">Available Stays</h2>
+                    <p class="section-subtitle">Discover amazing properties from our hosts</p>
+                </div>
+                <div class="filter-buttons">
+                    <button class="btn btn-sm btn-outline-primary filter-btn active" data-filter="all">All</button>
+                    <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="Hotels">Hotels</button>
+                    <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="Apartments">Apartments</button>
+                    <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="Villas">Villas</button>
+                    <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="Resorts">Resorts</button>
+                </div>
+            </div>
+            <div class="listings-grid" id="listings-grid">
+                <!-- Listings will be dynamically inserted here -->
+            </div>
+            <div class="no-listings" id="no-listings" style="display: none; text-align: center; padding: 60px 20px;">
+                <i class="fas fa-home" style="font-size: 64px; color: #ccc; margin-bottom: 20px;"></i>
+                <h3 style="color: #999; margin-bottom: 10px;">No listings available</h3>
+                <p style="color: #999;">Be the first to <a href="../listing-page/listing.html">create a listing</a>!</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Popular Destinations -->
     <section class="destinations-section">
         <div class="container">

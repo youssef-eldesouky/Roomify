@@ -728,13 +728,40 @@
                     </div>
                 </div>
 
-                <!-- Tags -->
+                <!-- Property Type Tags -->
                 <div class="form-group">
-                    <label for="tag-input">Tags</label>
-                    <div class="tags-container" id="tags-container">
-                        <input type="text" id="tag-input" class="tag-input" placeholder="Type a tag and press Enter">
+                    <label>Property Type <span class="required">*</span></label>
+                    <div class="amenities-grid" id="property-types-grid">
+                        <div class="amenity-item">
+                            <input type="checkbox" id="type-hotel" name="propertyTypes" value="Hotels">
+                            <label for="type-hotel">Hotels</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="type-apartment" name="propertyTypes" value="Apartments">
+                            <label for="type-apartment">Apartments</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="type-villa" name="propertyTypes" value="Villas">
+                            <label for="type-villa">Villas</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="type-resort" name="propertyTypes" value="Resorts">
+                            <label for="type-resort">Resorts</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="type-bnb" name="propertyTypes" value="Bed & Breakfast">
+                            <label for="type-bnb">Bed & Breakfast</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="type-guesthouse" name="propertyTypes" value="Guest Houses">
+                            <label for="type-guesthouse">Guest Houses</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="type-hostel" name="propertyTypes" value="Hostels">
+                            <label for="type-hostel">Hostels</label>
+                        </div>
                     </div>
-                    <small>Add tags to help guests find your property (e.g., "Luxury", "Beachfront", "Family-friendly")</small>
+                    <small>Select one or more property types that match your listing</small>
                 </div>
 
                 <!-- Photo Upload -->
@@ -875,7 +902,7 @@
     <script>
         // State management
         let uploadedPhotos = [];
-        let tags = [];
+        let propertyTypes = [];
 
         // DOM Elements
         const form = document.getElementById('listing-form');
@@ -884,8 +911,7 @@
         const photoUploadArea = document.getElementById('photo-upload-area');
         const photoInput = document.getElementById('photo-input');
         const uploadedPhotosContainer = document.getElementById('uploaded-photos');
-        const tagInput = document.getElementById('tag-input');
-        const tagsContainer = document.getElementById('tags-container');
+        const propertyTypeInputs = document.querySelectorAll('input[name="propertyTypes"]');
         const submitBtn = document.getElementById('submit-btn');
 
         // Form inputs
@@ -928,6 +954,14 @@
                 input.addEventListener('change', updatePreview);
             });
 
+            // Property types
+            propertyTypeInputs.forEach(input => {
+                input.addEventListener('change', () => {
+                    updatePropertyTypes();
+                    updatePreview();
+                });
+            });
+
             // Photo upload
             photoUploadArea.addEventListener('click', () => photoInput.click());
             photoInput.addEventListener('change', handlePhotoUpload);
@@ -936,10 +970,6 @@
             photoUploadArea.addEventListener('dragover', handleDragOver);
             photoUploadArea.addEventListener('dragleave', handleDragLeave);
             photoUploadArea.addEventListener('drop', handleDrop);
-
-            // Tags
-            tagInput.addEventListener('keypress', handleTagInput);
-            tagInput.addEventListener('blur', addTagFromInput);
 
             // Form submission
             form.addEventListener('submit', handleFormSubmit);
@@ -1008,22 +1038,29 @@
                    checkoutInput.value !== '' ||
                    priceInput.value !== '' ||
                    Array.from(amenitiesInputs).some(input => input.checked) ||
-                   tags.length > 0 ||
+                   propertyTypes.length > 0 ||
                    uploadedPhotos.length > 0;
+        }
+
+        // Update property types
+        function updatePropertyTypes() {
+            propertyTypes = Array.from(propertyTypeInputs)
+                .filter(input => input.checked)
+                .map(input => input.value);
         }
 
         // Update preview tags
         function updatePreviewTags() {
             previewTags.innerHTML = '';
-            if (tags.length === 0) {
+            if (propertyTypes.length === 0) {
                 previewTags.style.display = 'none';
                 return;
             }
             previewTags.style.display = 'flex';
-            tags.forEach(tag => {
+            propertyTypes.forEach(type => {
                 const tagElement = document.createElement('span');
                 tagElement.className = 'preview-tag';
-                tagElement.textContent = tag;
+                tagElement.textContent = type;
                 previewTags.appendChild(tagElement);
             });
         }
@@ -1168,43 +1205,6 @@
             uploadedPhotosContainer.appendChild(photoDiv);
         }
 
-        // Handle tag input
-        function handleTagInput(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                addTagFromInput();
-            }
-        }
-
-        // Add tag from input
-        function addTagFromInput() {
-            const tagValue = tagInput.value.trim();
-            if (tagValue && !tags.includes(tagValue)) {
-                tags.push(tagValue);
-                renderTag(tagValue);
-                tagInput.value = '';
-                updatePreview();
-            }
-        }
-
-        // Render tag
-        function renderTag(tag) {
-            const tagElement = document.createElement('span');
-            tagElement.className = 'tag';
-            tagElement.textContent = tag;
-            
-            const removeBtn = document.createElement('span');
-            removeBtn.className = 'remove-tag';
-            removeBtn.textContent = '×';
-            removeBtn.onclick = () => {
-                tags = tags.filter(t => t !== tag);
-                tagElement.remove();
-                updatePreview();
-            };
-            
-            tagElement.appendChild(removeBtn);
-            tagsContainer.insertBefore(tagElement, tagInput);
-        }
 
         // Handle form submission
         function handleFormSubmit(e) {
@@ -1226,19 +1226,41 @@
                 amenities: Array.from(amenitiesInputs)
                     .filter(input => input.checked)
                     .map(input => input.value),
-                tags: tags,
-                photos: uploadedPhotos.map(photo => photo.url)
+                propertyTypes: propertyTypes,
+                photos: uploadedPhotos.map(photo => photo.url),
+                id: 'listing_' + Date.now(),
+                publishedAt: new Date().toISOString()
             };
             
-            // Simulate submission
+            // Save to localStorage
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publishing...';
             
             setTimeout(() => {
-                alert('Listing published successfully! (This is a demo - in production, this would save to a database)');
-                console.log('Form Data:', formData);
+                // Get existing listings
+                let listings = JSON.parse(localStorage.getItem('roomify_listings') || '[]');
+                
+                // Add new listing
+                listings.push(formData);
+                
+                // Save back to localStorage
+                localStorage.setItem('roomify_listings', JSON.stringify(listings));
+                
+                alert('Listing published successfully! It will now appear in the Stays section on the home page.');
+                console.log('Listing saved:', formData);
+                
+                // Reset form
+                form.reset();
+                uploadedPhotos = [];
+                propertyTypes = [];
+                uploadedPhotosContainer.innerHTML = '';
+                updatePreview();
+                
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Publish Listing';
+                
+                // Optionally redirect to home page
+                // window.location.href = '../Home Page/index.html';
             }, 2000);
         }
 
@@ -1285,6 +1307,11 @@
             const selectedAmenities = Array.from(amenitiesInputs).filter(input => input.checked);
             if (selectedAmenities.length === 0) {
                 alert('Please select at least one amenity');
+                isValid = false;
+            }
+            
+            if (propertyTypes.length === 0) {
+                alert('Please select at least one property type');
                 isValid = false;
             }
             

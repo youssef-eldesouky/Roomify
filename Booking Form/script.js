@@ -6,6 +6,67 @@ document.addEventListener('DOMContentLoaded', function() {
     const cardNumberInput = document.getElementById('cardNumber');
     const cvvInput = document.getElementById('cvv');
     const expiryYearSelect = document.getElementById('expiryYear');
+    
+    // Load listing data from URL if listingId is provided
+    let currentListing = null;
+    const urlParams = new URLSearchParams(window.location.search);
+    const listingId = urlParams.get('listingId');
+    
+    if (listingId) {
+        loadListingData(listingId);
+    }
+    
+    // Load listing data from localStorage
+    function loadListingData(id) {
+        const listings = JSON.parse(localStorage.getItem('roomify_listings') || '[]');
+        currentListing = listings.find(listing => listing.id === id);
+        
+        if (currentListing) {
+            // Pre-fill form with listing data
+            const destinationInput = document.getElementById('destination');
+            const propertyTypeSelect = document.getElementById('propertyType');
+            const guestsSelect = document.getElementById('guests');
+            
+            if (destinationInput) {
+                destinationInput.value = currentListing.title || '';
+            }
+            
+            if (propertyTypeSelect && currentListing.propertyTypes && currentListing.propertyTypes.length > 0) {
+                const firstType = currentListing.propertyTypes[0].toLowerCase();
+                // Map property types to select values
+                const typeMap = {
+                    'hotels': 'hotel',
+                    'apartments': 'apartment',
+                    'villas': 'villa',
+                    'resorts': 'resort',
+                    'bed & breakfast': 'bed-breakfast',
+                    'guest houses': 'guest-house',
+                    'hostels': 'hostel'
+                };
+                const mappedType = typeMap[firstType] || firstType;
+                propertyTypeSelect.value = mappedType;
+            }
+            
+            if (guestsSelect && currentListing.guests) {
+                guestsSelect.value = currentListing.guests;
+            }
+            
+            // Display listing info in summary
+            displayListingInfo(currentListing);
+            
+            // Update summary calculation to use listing price
+            updateSummary();
+        }
+    }
+    
+    // Display listing information
+    function displayListingInfo(listing) {
+        // Add listing info to summary sidebar if needed
+        const summaryTitle = document.querySelector('.summary-title');
+        if (summaryTitle && listing) {
+            // You can add listing image or other details here
+        }
+    }
 
     // Set minimum date to today
     const today = new Date().toISOString().split('T')[0];
@@ -73,15 +134,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('summaryGuests').textContent = guests === '-' ? '-' : `${guests} ${guests === '1' ? 'Guest' : 'Guests'}`;
         document.getElementById('summaryRooms').textContent = rooms === '-' ? '-' : `${rooms} ${rooms === '1' ? 'Room' : 'Rooms'}`;
 
-        // Calculate total (mock calculation)
+        // Calculate total
         if (checkIn !== '-' && checkOut !== '-' && rooms !== '-') {
             const nights = calculateNights(checkIn, checkOut);
             const roomCount = parseInt(rooms) || 1;
-            const basePrice = 1500; // EGP per night per room
+            
+            // Use listing price if available, otherwise use default
+            let basePrice = 1500; // Default EGP per night per room
+            if (currentListing && currentListing.price) {
+                basePrice = parseFloat(currentListing.price);
+            }
+            
             const total = nights * roomCount * basePrice;
-            document.getElementById('summaryTotal').textContent = `EGP ${total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            const currency = currentListing ? 'USD' : 'EGP';
+            document.getElementById('summaryTotal').textContent = `${currency} ${total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
         } else {
-            document.getElementById('summaryTotal').textContent = 'EGP 0.00';
+            document.getElementById('summaryTotal').textContent = currentListing ? 'USD 0.00' : 'EGP 0.00';
         }
     }
 
