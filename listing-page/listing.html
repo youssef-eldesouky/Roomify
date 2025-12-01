@@ -3,32 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roomify - Listing Details</title>
+    <title>Roomify - Create Your Listing</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chatbot CSS -->
     <link rel="stylesheet" href="../shared/chatbot.css">
     <style>
-        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
             color: #333;
             line-height: 1.6;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header Styles */
+
+        /* Header */
         header {
             background-color: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -36,526 +28,548 @@
             top: 0;
             z-index: 100;
         }
-        
+
         .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
         }
-        
+
         .logo {
             font-size: 24px;
             font-weight: 700;
             color: #3a86ff;
             text-decoration: none;
         }
-        
+
         .nav-links {
             display: flex;
             list-style: none;
+            gap: 20px;
         }
-        
-        .nav-links li {
-            margin-left: 20px;
-        }
-        
+
         .nav-links a {
             text-decoration: none;
             color: #333;
             font-weight: 500;
             transition: color 0.3s;
         }
-        
+
         .nav-links a:hover {
             color: #3a86ff;
         }
-        
-        /* Main Content Styles */
-        .listing-container {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 30px 0;
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
         }
-        
-        .listing-images {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .main-image {
-            width: 100%;
-            height: 400px;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 15px;
-            position: relative;
-        }
-        
-        .main-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .image-thumbnails {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-        }
-        
-        .thumbnail {
-            width: 80px;
-            height: 80px;
-            border-radius: 5px;
-            overflow: hidden;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        
-        .thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .thumbnail.active {
-            border: 2px solid #3a86ff;
-        }
-        
-        .listing-details {
-            flex: 1;
-            min-width: 300px;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 25px;
+
+        /* Form Section */
+        .form-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
         }
-        
-        .listing-header {
-            margin-bottom: 20px;
+
+        .section-header {
+            margin-bottom: 30px;
             padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 2px solid #f0f0f0;
         }
-        
-        .listing-title {
+
+        .section-header h1 {
             font-size: 28px;
-            margin-bottom: 10px;
             color: #333;
+            margin-bottom: 8px;
         }
-        
-        .listing-location {
+
+        .section-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group label .required {
+            color: #ff4757;
+            margin-left: 3px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3a86ff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        /* Amenities Grid */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .amenity-item {
             display: flex;
             align-items: center;
-            color: #666;
-            margin-bottom: 15px;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        
-        .listing-location i {
-            margin-right: 5px;
+
+        .amenity-item:hover {
+            border-color: #3a86ff;
+            background-color: #f0f7ff;
         }
-        
-        .listing-tags {
+
+        .amenity-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .amenity-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .amenity-item i {
+            color: #3a86ff;
+            margin-right: 8px;
+        }
+
+        /* Tags Input */
+        .tags-container {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .tag {
-            background-color: #e9f2ff;
-            color: #3a86ff;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .listing-rating {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .stars {
-            color: #ffc107;
-            margin-right: 10px;
-        }
-        
-        .rating-value {
-            font-weight: 600;
-            margin-right: 5px;
-        }
-        
-        .reviews-count {
-            color: #666;
-        }
-        
-        .listing-description {
-            margin-bottom: 25px;
-            color: #555;
-            line-height: 1.7;
-        }
-        
-        .amenities-section {
-            margin-bottom: 25px;
-        }
-        
-        .section-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .amenities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        
-        .amenity {
-            display: flex;
-            align-items: center;
-        }
-        
-        .amenity i {
-            color: #3a86ff;
-            margin-right: 10px;
-            width: 20px;
-        }
-        
-        .booking-section {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        
-        .price-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .price {
-            font-size: 28px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .price-period {
-            font-size: 16px;
-            color: #666;
-            font-weight: normal;
-        }
-        
-        .booking-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .form-group label {
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        .form-group input, .form-group select {
+            margin-top: 10px;
             padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            min-height: 50px;
         }
-        
-        .book-btn {
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
             background-color: #3a86ff;
             color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .tag .remove-tag {
+            margin-left: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
+            font-weight: bold;
         }
-        
-        .book-btn:hover {
-            background-color: #2667cc;
+
+        .tag-input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 100px;
+            font-size: 14px;
         }
-        
-        /* Photo Upload Section */
-        .photo-upload-section {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 25px;
-            margin: 30px 0;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .upload-area {
-            border: 2px dashed #ddd;
-            border-radius: 10px;
-            padding: 40px 20px;
+
+        /* Photo Upload */
+        .photo-upload-area {
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
             text-align: center;
             cursor: pointer;
-            transition: border-color 0.3s;
-            margin-bottom: 20px;
+            transition: all 0.3s;
+            margin-top: 10px;
         }
-        
-        .upload-area:hover {
+
+        .photo-upload-area:hover {
             border-color: #3a86ff;
+            background-color: #f0f7ff;
         }
-        
-        .upload-area i {
+
+        .photo-upload-area.dragover {
+            border-color: #3a86ff;
+            background-color: #e8f4ff;
+        }
+
+        .photo-upload-area i {
             font-size: 48px;
             color: #3a86ff;
             margin-bottom: 15px;
         }
-        
-        .upload-text {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-        
-        .upload-subtext {
-            color: #666;
-            margin-bottom: 15px;
-        }
-        
-        .upload-btn {
-            background-color: #3a86ff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .upload-btn:hover {
-            background-color: #2667cc;
-        }
-        
-        .uploaded-photos {
+
+        .uploaded-photos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
-        
+
         .uploaded-photo {
             position: relative;
-            border-radius: 5px;
+            aspect-ratio: 1;
+            border-radius: 8px;
             overflow: hidden;
-            height: 150px;
+            border: 2px solid #e0e0e0;
         }
-        
+
         .uploaded-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
+
         .delete-photo {
             position: absolute;
             top: 5px;
             right: 5px;
-            background-color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             border: none;
             border-radius: 50%;
-            width: 25px;
-            height: 25px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             color: #ff4757;
+            font-size: 14px;
+            transition: all 0.3s;
         }
-        
-        /* Chat Box Styles */
-        .chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 350px;
-            height: 450px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            transform: translateY(calc(100% + 20px));
-            transition: transform 0.3s ease;
+
+        .delete-photo:hover {
+            background: #ff4757;
+            color: white;
         }
-        
-        .chat-container.open {
+
+        .photo-input {
+            display: none;
+        }
+
+        /* Submit Button */
+        .submit-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3a86ff 0%, #2667cc 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(58, 134, 255, 0.3);
+        }
+
+        .submit-btn:active {
             transform: translateY(0);
         }
-        
-        .chat-header {
-            background-color: #3a86ff;
-            color: white;
-            padding: 15px;
-            border-radius: 10px 10px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
         }
-        
-        .chat-title {
-            font-weight: 600;
+
+        /* Preview Section */
+        .preview-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .preview-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .preview-header h2 {
+            font-size: 22px;
+            color: #333;
+        }
+
+        .preview-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .preview-empty i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .preview-empty p {
             font-size: 16px;
         }
-        
-        .chat-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
+
+        .preview-content {
+            display: none;
         }
-        
-        .chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
+
+        .preview-content.active {
+            display: block;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: #f0f0f0;
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            color: #999;
         }
-        
-        .message {
-            max-width: 80%;
-            padding: 10px 15px;
-            border-radius: 18px;
-            font-size: 14px;
-            line-height: 1.4;
+
+        .preview-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        
-        .message.guest {
-            align-self: flex-end;
-            background-color: #3a86ff;
-            color: white;
-            border-bottom-right-radius: 5px;
+
+        .preview-image-placeholder {
+            text-align: center;
+            color: #999;
         }
-        
-        .message.host {
-            align-self: flex-start;
-            background-color: #f1f3f5;
+
+        .preview-title {
+            font-size: 24px;
+            font-weight: 700;
             color: #333;
-            border-bottom-left-radius: 5px;
+            margin-bottom: 10px;
         }
-        
-        .message-time {
-            font-size: 11px;
-            margin-top: 5px;
-            opacity: 0.7;
-            text-align: right;
-        }
-        
-        .chat-input-area {
-            padding: 15px;
-            border-top: 1px solid #eee;
+
+        .preview-location {
+            color: #666;
+            margin-bottom: 15px;
             display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .preview-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .preview-tag {
+            background-color: #e9f2ff;
+            color: #3a86ff;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .preview-description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .preview-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .preview-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-detail-item i {
+            color: #3a86ff;
+        }
+
+        .preview-amenities {
+            margin-bottom: 20px;
+        }
+
+        .preview-amenities-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .preview-amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
         }
-        
-        .chat-input {
-            flex: 1;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
+
+        .preview-amenity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 14px;
-            outline: none;
+            color: #555;
         }
-        
-        .chat-send {
-            background-color: #3a86ff;
+
+        .preview-amenity i {
+            color: #3a86ff;
+        }
+
+        .preview-price {
+            background: linear-gradient(135deg, #3a86ff 0%, #2667cc 100%);
             color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
         }
-        
-        .chat-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #3a86ff;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            z-index: 999;
+
+        .preview-price-amount {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
-        
-        .chat-toggle i {
-            font-size: 24px;
+
+        .preview-price-period {
+            font-size: 14px;
+            opacity: 0.9;
         }
-        
-        /* Footer Styles */
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-section {
+                position: relative;
+                top: 0;
+                max-height: none;
+            }
+        }
+
+        /* Footer */
         footer {
             background-color: #333;
             color: #fff;
             padding: 40px 0;
             margin-top: 50px;
         }
-        
+
         .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             gap: 30px;
         }
-        
+
         .footer-section {
             flex: 1;
             min-width: 200px;
         }
-        
+
         .footer-section h3 {
             margin-bottom: 20px;
             font-size: 18px;
         }
-        
+
         .footer-links {
             list-style: none;
         }
-        
+
         .footer-links li {
             margin-bottom: 10px;
         }
-        
+
         .footer-links a {
             color: #ddd;
             text-decoration: none;
             transition: color 0.3s;
         }
-        
+
         .footer-links a:hover {
             color: #3a86ff;
         }
-        
+
         .footer-bottom {
             text-align: center;
             margin-top: 30px;
@@ -563,473 +577,282 @@
             border-top: 1px solid #444;
             color: #aaa;
         }
-        
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .listing-container {
-                flex-direction: column;
-            }
-            
-            .chat-container {
-                width: 100%;
-                height: 70%;
-                bottom: 0;
-                right: 0;
-                border-radius: 10px 10px 0 0;
-            }
-            
-            .chat-toggle {
-                bottom: 10px;
-                right: 10px;
-            }
+
+        /* Validation */
+        .form-group.error input,
+        .form-group.error textarea,
+        .form-group.error select {
+            border-color: #ff4757;
+        }
+
+        .error-message {
+            color: #ff4757;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
         }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="../Home Page/index.html" class="logo">Roomify</a>
-                <ul class="nav-links">
-                 <li><a href="../Home Page/index.html">Home</a></li>
-                 <li><a href="../Home Page/index.html">Search</a></li>
-                 <li><a href="../profile and bookings/profile&bookings.html">My Bookings</a></li>
-                 <li><a href="../profile and bookings/profile&bookings.html">Profile</a></li>
-                </ul>
-
-            </nav>
+        <div class="navbar">
+            <a href="../Home Page/index.html" class="logo">Roomify</a>
+            <ul class="nav-links">
+                <li><a href="../Home Page/index.html">Home</a></li>
+                <li><a href="../Home Page/index.html">Search</a></li>
+                <li><a href="../profile and bookings/profile&bookings.html">My Bookings</a></li>
+                <li><a href="../profile and bookings/profile&bookings.html">Profile</a></li>
+            </ul>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Listing Details -->
-        <div class="listing-container">
-            <div class="listing-images">
-                <div class="main-image">
-                    <img id="main-image" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Luxury Apartment">
-                </div>
-                <div class="image-thumbnails">
-                    <div class="thumbnail active" data-image="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
-                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Thumbnail 1">
-                    </div>
-                    <div class="thumbnail" data-image="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
-                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Thumbnail 2">
-                    </div>
-                    <div class="thumbnail" data-image="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
-                        <img src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Thumbnail 3">
-                    </div>
-                    <div class="thumbnail" data-image="https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
-                        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Thumbnail 4">
-                    </div>
-                </div>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <div class="section-header">
+                <h1>Create Your Listing</h1>
+                <p>Fill out the form below to create your property listing. The preview will update as you type.</p>
             </div>
-            
-            <div class="listing-details">
-                <div class="listing-header">
-                    <h1 class="listing-title">Luxury Apartment with City View</h1>
-                    <div class="listing-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Downtown, New York</span>
+
+            <form id="listing-form">
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="listing-title">Property Title <span class="required">*</span></label>
+                    <input type="text" id="listing-title" name="title" placeholder="e.g., Cozy Apartment in Downtown" required>
+                    <small>Choose a catchy title that describes your property</small>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="listing-description">Description <span class="required">*</span></label>
+                    <textarea id="listing-description" name="description" placeholder="Describe your property, its features, and what makes it special..." required></textarea>
+                    <small>Provide a detailed description of your property</small>
+                </div>
+
+                <!-- Guests -->
+                <div class="form-group">
+                    <label for="listing-guests">Maximum Guests <span class="required">*</span></label>
+                    <input type="number" id="listing-guests" name="guests" min="1" max="20" placeholder="2" required>
+                    <small>How many guests can your property accommodate?</small>
+                </div>
+
+                <!-- Check-in/Check-out -->
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label for="listing-checkin">Check-in Time <span class="required">*</span></label>
+                        <input type="time" id="listing-checkin" name="checkin" required>
                     </div>
-                    <div class="listing-tags">
-                        <span class="tag">Apartment</span>
-                        <span class="tag">City View</span>
-                        <span class="tag">Luxury</span>
-                        <span class="tag">Free WiFi</span>
-                    </div>
-                    <div class="listing-rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <span class="rating-value">4.5</span>
-                        <span class="reviews-count">(128 reviews)</span>
+                    <div>
+                        <label for="listing-checkout">Check-out Time <span class="required">*</span></label>
+                        <input type="time" id="listing-checkout" name="checkout" required>
                     </div>
                 </div>
-                
-                <div class="listing-description">
-                    <p>This stunning luxury apartment offers breathtaking city views from its floor-to-ceiling windows. Located in the heart of downtown, you'll have easy access to the best restaurants, shopping, and entertainment the city has to offer.</p>
-                    <p>The apartment features a modern kitchen with high-end appliances, a spacious living area, and a comfortable bedroom with a king-sized bed. Perfect for both short and extended stays.</p>
+
+                <!-- Price per Night -->
+                <div class="form-group">
+                    <label for="listing-price">Price per Night (USD) <span class="required">*</span></label>
+                    <input type="number" id="listing-price" name="price" min="1" step="0.01" placeholder="99.00" required>
+                    <small>Set your nightly rate</small>
                 </div>
-                
-                <div class="amenities-section">
-                    <h2 class="section-title">Amenities</h2>
+
+                <!-- Amenities -->
+                <div class="form-group">
+                    <label>Amenities <span class="required">*</span></label>
                     <div class="amenities-grid">
-                        <div class="amenity">
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-wifi" name="amenities" value="WiFi">
                             <i class="fas fa-wifi"></i>
-                            <span>Free WiFi</span>
+                            <label for="amenity-wifi">WiFi</label>
                         </div>
-                        <div class="amenity">
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-tv" name="amenities" value="TV">
                             <i class="fas fa-tv"></i>
-                            <span>Smart TV</span>
+                            <label for="amenity-tv">TV</label>
                         </div>
-                        <div class="amenity">
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-kitchen" name="amenities" value="Kitchen">
                             <i class="fas fa-utensils"></i>
-                            <span>Fully Equipped Kitchen</span>
+                            <label for="amenity-kitchen">Kitchen</label>
                         </div>
-                        <div class="amenity">
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-ac" name="amenities" value="Air Conditioning">
                             <i class="fas fa-snowflake"></i>
-                            <span>Air Conditioning</span>
+                            <label for="amenity-ac">Air Conditioning</label>
                         </div>
-                        <div class="amenity">
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-parking" name="amenities" value="Parking">
                             <i class="fas fa-parking"></i>
-                            <span>Free Parking</span>
+                            <label for="amenity-parking">Parking</label>
                         </div>
-                        <div class="amenity">
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-pool" name="amenities" value="Pool">
                             <i class="fas fa-swimming-pool"></i>
-                            <span>Swimming Pool</span>
+                            <label for="amenity-pool">Pool</label>
                         </div>
-                        <div class="amenity">
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-gym" name="amenities" value="Gym">
                             <i class="fas fa-dumbbell"></i>
-                            <span>Fitness Center</span>
+                            <label for="amenity-gym">Gym</label>
                         </div>
-                        <div class="amenity">
-                            <i class="fas fa-hot-tub"></i>
-                            <span>Hot Tub</span>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-washer" name="amenities" value="Washer">
+                            <i class="fas fa-tshirt"></i>
+                            <label for="amenity-washer">Washer</label>
                         </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-dryer" name="amenities" value="Dryer">
+                            <i class="fas fa-wind"></i>
+                            <label for="amenity-dryer">Dryer</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-heating" name="amenities" value="Heating">
+                            <i class="fas fa-fire"></i>
+                            <label for="amenity-heating">Heating</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-workspace" name="amenities" value="Workspace">
+                            <i class="fas fa-laptop"></i>
+                            <label for="amenity-workspace">Workspace</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="amenity-pets" name="amenities" value="Pets Allowed">
+                            <i class="fas fa-paw"></i>
+                            <label for="amenity-pets">Pets Allowed</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="form-group">
+                    <label for="tag-input">Tags</label>
+                    <div class="tags-container" id="tags-container">
+                        <input type="text" id="tag-input" class="tag-input" placeholder="Type a tag and press Enter">
+                    </div>
+                    <small>Add tags to help guests find your property (e.g., "Luxury", "Beachfront", "Family-friendly")</small>
+                </div>
+
+                <!-- Photo Upload -->
+                <div class="form-group">
+                    <label>Photos <span class="required">*</span></label>
+                    <div class="photo-upload-area" id="photo-upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p style="margin: 10px 0; font-weight: 600;">Drag & Drop your photos here</p>
+                        <p style="color: #888; font-size: 14px;">or</p>
+                        <button type="button" class="upload-btn" style="margin-top: 10px; padding: 10px 20px; background: #3a86ff; color: white; border: none; border-radius: 5px; cursor: pointer;">Browse Files</button>
+                        <input type="file" id="photo-input" class="photo-input" accept="image/*" multiple>
+                    </div>
+                    <div class="uploaded-photos-grid" id="uploaded-photos"></div>
+                    <small>Upload at least one photo of your property</small>
+                </div>
+
+                <!-- Submit -->
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <i class="fas fa-check-circle"></i> Publish Listing
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <div class="preview-header">
+                <h2>Live Preview</h2>
+            </div>
+            
+            <!-- Empty State -->
+            <div class="preview-empty" id="preview-empty">
+                <i class="fas fa-home"></i>
+                <p>Start filling out the form to see your listing preview here</p>
+            </div>
+
+            <!-- Preview Content -->
+            <div class="preview-content" id="preview-content">
+                <div class="preview-image" id="preview-image">
+                    <div class="preview-image-placeholder">
+                        <i class="fas fa-image" style="font-size: 48px; opacity: 0.3;"></i>
+                        <p>No photos uploaded yet</p>
                     </div>
                 </div>
                 
-                <div class="booking-section">
-                    <div class="price-section">
-                        <div class="price">$189 <span class="price-period">/ night</span></div>
-                        <div class="listing-rating">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
+                <h2 class="preview-title" id="preview-title">Your Property Title</h2>
+                
+                <div class="preview-location" id="preview-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location</span>
+                </div>
+                
+                <div class="preview-tags" id="preview-tags"></div>
+                
+                <div class="preview-description" id="preview-description">
+                    Your property description will appear here...
+                </div>
+                
+                <div class="preview-details">
+                    <div class="preview-detail-item">
+                        <i class="fas fa-users"></i>
+                        <span id="preview-guests">- Guests</span>
                     </div>
-                    
-                    <form class="booking-form">
-                        <div class="form-group">
-                            <label for="check-in">Check-in</label>
-                            <input type="date" id="check-in" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="check-out">Check-out</label>
-                            <input type="date" id="check-out" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="guests">Guests</label>
-                            <select id="guests" required>
-                                <option value="1">1 Guest</option>
-                                <option value="2" selected>2 Guests</option>
-                                <option value="3">3 Guests</option>
-                                <option value="4">4 Guests</option>
-                            </select>
-                        </div>
-                        <a href="../Booking Form/booking-form.html" class="book-btn">Book Now</a>
-                    </form>
+                    <div class="preview-detail-item">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span id="preview-checkin">- Check-in</span>
+                    </div>
+                    <div class="preview-detail-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span id="preview-checkout">- Check-out</span>
+                    </div>
+                </div>
+                
+                <div class="preview-amenities" id="preview-amenities-section">
+                    <div class="preview-amenities-title">Amenities</div>
+                    <div class="preview-amenities-grid" id="preview-amenities"></div>
+                </div>
+                
+                <div class="preview-price">
+                    <div class="preview-price-amount" id="preview-price">$0</div>
+                    <div class="preview-price-period">per night</div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Photo Upload Section -->
-        <div class="photo-upload-section">
-            <h2 class="section-title">Upload Your Photos</h2>
-            <p>Share your experience by uploading photos of your stay.</p>
-            
-            <div class="upload-area" id="upload-area">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <div class="upload-text">Drag & Drop your photos here</div>
-                <div class="upload-subtext">or</div>
-                <input type="file" id="file-input" accept="image/*" multiple style="display: none;">
-                <button class="upload-btn" id="browse-btn">Browse Files</button>
-            </div>
-            
-            <div class="uploaded-photos" id="uploaded-photos">
-                <!-- Uploaded photos will appear here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Chat Toggle Button -->
-    <div class="chat-toggle" id="chat-toggle">
-        <i class="fas fa-comments"></i>
-    </div>
-
-    <!-- Chat Box -->
-    <div class="chat-container" id="chat-container">
-        <div class="chat-header">
-            <div class="chat-title">Chat with Host</div>
-            <button class="chat-close" id="chat-close">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="chat-messages" id="chat-messages">
-            <div class="message host">
-                Hello! Thanks for your interest in our property. How can I help you?
-                <div class="message-time">10:30 AM</div>
-            </div>
-            <div class="message guest">
-                Hi! I'm interested in booking for next weekend. Is the apartment available from Friday to Sunday?
-                <div class="message-time">10:32 AM</div>
-            </div>
-            <div class="message host">
-                Yes, those dates are available! Would you like to proceed with the booking?
-                <div class="message-time">10:33 AM</div>
-            </div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chat-input" placeholder="Type your message...">
-            <button class="chat-send" id="chat-send">
-                <i class="fas fa-paper-plane"></i>
-            </button>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Roomify</h3>
-                    <p>Find your perfect stay with Roomify. We connect travelers with unique accommodations around the world.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="../Home Page/index.html">Home</a></li>
-                        <li><a href="../Home Page/index.html">Search</a></li>
-                        <li><a href="../listing-page/listing.html">List Your Property</a></li>
-                        <li><a href="../Home Page/index.html">About Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-envelope"></i> support@roomify.com</li>
-                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Travel St, City, Country</li>
-                    </ul>
-                </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Roomify</h3>
+                <p>Find your perfect stay with Roomify. We connect travelers with unique accommodations around the world.</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Roomify. All rights reserved.</p>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="../Home Page/index.html">Home</a></li>
+                    <li><a href="../Home Page/index.html">Search</a></li>
+                    <li><a href="../listing-page/listing.html">List Your Property</a></li>
+                    <li><a href="../Home Page/index.html">About Us</a></li>
+                </ul>
             </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Roomify. All rights reserved.</p>
         </div>
     </footer>
 
-    <script>
-        // Image Thumbnail Selection
-        document.querySelectorAll('.thumbnail').forEach(thumb => {
-            thumb.addEventListener('click', function() {
-                // Remove active class from all thumbnails
-                document.querySelectorAll('.thumbnail').forEach(t => {
-                    t.classList.remove('active');
-                });
-                
-                // Add active class to clicked thumbnail
-                this.classList.add('active');
-                
-                // Update main image
-                const mainImage = document.getElementById('main-image');
-                mainImage.src = this.getAttribute('data-image');
-            });
-        });
-
-        // Photo Upload Functionality
-        const uploadArea = document.getElementById('upload-area');
-        const fileInput = document.getElementById('file-input');
-        const browseBtn = document.getElementById('browse-btn');
-        const uploadedPhotos = document.getElementById('uploaded-photos');
-
-        // Open file browser when clicking upload area or browse button
-        uploadArea.addEventListener('click', () => {
-            fileInput.click();
-        });
-        
-        browseBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            fileInput.click();
-        });
-
-        // Handle file selection
-        fileInput.addEventListener('change', function(e) {
-            const files = e.target.files;
-            handleFiles(files);
-        });
-
-        // Handle drag and drop
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.style.borderColor = '#3a86ff';
-            uploadArea.style.backgroundColor = '#f0f7ff';
-        });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.style.borderColor = '#ddd';
-            uploadArea.style.backgroundColor = 'transparent';
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.style.borderColor = '#ddd';
-            uploadArea.style.backgroundColor = 'transparent';
-            
-            const files = e.dataTransfer.files;
-            handleFiles(files);
-        });
-
-        // Process uploaded files
-        function handleFiles(files) {
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                
-                // Check if file is an image
-                if (!file.type.match('image.*')) {
-                    alert('Please upload only image files.');
-                    continue;
-                }
-                
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    const photoDiv = document.createElement('div');
-                    photoDiv.className = 'uploaded-photo';
-                    
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.className = 'delete-photo';
-                    deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
-                    deleteBtn.addEventListener('click', function() {
-                        photoDiv.remove();
-                    });
-                    
-                    photoDiv.appendChild(img);
-                    photoDiv.appendChild(deleteBtn);
-                    uploadedPhotos.appendChild(photoDiv);
-                };
-                
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Chat Functionality
-        const chatToggle = document.getElementById('chat-toggle');
-        const chatContainer = document.getElementById('chat-container');
-        const chatClose = document.getElementById('chat-close');
-        const chatMessages = document.getElementById('chat-messages');
-        const chatInput = document.getElementById('chat-input');
-        const chatSend = document.getElementById('chat-send');
-
-        // Toggle chat visibility
-        chatToggle.addEventListener('click', () => {
-            chatContainer.classList.toggle('open');
-        });
-
-        // Close chat
-        chatClose.addEventListener('click', () => {
-            chatContainer.classList.remove('open');
-        });
-
-        // Send message
-        function sendMessage() {
-            const messageText = chatInput.value.trim();
-            
-            if (messageText) {
-                // Create new message element
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message guest';
-                
-                const messageContent = document.createElement('div');
-                messageContent.textContent = messageText;
-                
-                const messageTime = document.createElement('div');
-                messageTime.className = 'message-time';
-                messageTime.textContent = getCurrentTime();
-                
-                messageDiv.appendChild(messageContent);
-                messageDiv.appendChild(messageTime);
-                
-                chatMessages.appendChild(messageDiv);
-                
-                // Clear input
-                chatInput.value = '';
-                
-                // Scroll to bottom
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // Simulate host response after a delay
-                setTimeout(simulateHostResponse, 1500);
-            }
-        }
-
-        // Send message on button click
-        chatSend.addEventListener('click', sendMessage);
-
-        // Send message on Enter key
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        // Get current time in HH:MM format
-        function getCurrentTime() {
-            const now = new Date();
-            return `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
-        }
-
-        // Simulate host response
-        function simulateHostResponse() {
-            const responses = [
-                "Thanks for your message! How can I assist you further?",
-                "I'll check that for you right away.",
-                "Yes, that's available for your selected dates.",
-                "Is there anything specific you'd like to know about the property?",
-                "We'd be happy to host you! Would you like to proceed with booking?"
-            ];
-            
-            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-            
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message host';
-            
-            const messageContent = document.createElement('div');
-            messageContent.textContent = randomResponse;
-            
-            const messageTime = document.createElement('div');
-            messageTime.className = 'message-time';
-            messageTime.textContent = getCurrentTime();
-            
-            messageDiv.appendChild(messageContent);
-            messageDiv.appendChild(messageTime);
-            
-            chatMessages.appendChild(messageDiv);
-            
-            // Scroll to bottom
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Booking form submission
-        document.querySelector('.booking-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Booking request submitted! You will be redirected to the payment page.');
-            // In a real application, this would process the booking and redirect to payment
-        });
-    </script>
-    
     <!-- Chatbot Component -->
     <button id="chatbot-icon" aria-label="Open chat support" type="button">
         <i class="fas fa-comments"></i>
@@ -1047,8 +870,448 @@
             </button>
         </div>
     </div>
-    
-    <!-- Chatbot JS -->
+
     <script src="../shared/chatbot.js"></script>
+    <script>
+        // State management
+        let uploadedPhotos = [];
+        let tags = [];
+
+        // DOM Elements
+        const form = document.getElementById('listing-form');
+        const previewEmpty = document.getElementById('preview-empty');
+        const previewContent = document.getElementById('preview-content');
+        const photoUploadArea = document.getElementById('photo-upload-area');
+        const photoInput = document.getElementById('photo-input');
+        const uploadedPhotosContainer = document.getElementById('uploaded-photos');
+        const tagInput = document.getElementById('tag-input');
+        const tagsContainer = document.getElementById('tags-container');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Form inputs
+        const titleInput = document.getElementById('listing-title');
+        const descriptionInput = document.getElementById('listing-description');
+        const guestsInput = document.getElementById('listing-guests');
+        const checkinInput = document.getElementById('listing-checkin');
+        const checkoutInput = document.getElementById('listing-checkout');
+        const priceInput = document.getElementById('listing-price');
+        const amenitiesInputs = document.querySelectorAll('input[name="amenities"]');
+
+        // Preview elements
+        const previewImage = document.getElementById('preview-image');
+        const previewTitle = document.getElementById('preview-title');
+        const previewDescription = document.getElementById('preview-description');
+        const previewGuests = document.getElementById('preview-guests');
+        const previewCheckin = document.getElementById('preview-checkin');
+        const previewCheckout = document.getElementById('preview-checkout');
+        const previewPrice = document.getElementById('preview-price');
+        const previewTags = document.getElementById('preview-tags');
+        const previewAmenities = document.getElementById('preview-amenities');
+
+        // Initialize
+        function init() {
+            setupEventListeners();
+            updatePreview();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Form inputs - update preview on change
+            titleInput.addEventListener('input', updatePreview);
+            descriptionInput.addEventListener('input', updatePreview);
+            guestsInput.addEventListener('input', updatePreview);
+            checkinInput.addEventListener('change', updatePreview);
+            checkoutInput.addEventListener('change', updatePreview);
+            priceInput.addEventListener('input', updatePreview);
+            
+            amenitiesInputs.forEach(input => {
+                input.addEventListener('change', updatePreview);
+            });
+
+            // Photo upload
+            photoUploadArea.addEventListener('click', () => photoInput.click());
+            photoInput.addEventListener('change', handlePhotoUpload);
+            
+            // Drag and drop
+            photoUploadArea.addEventListener('dragover', handleDragOver);
+            photoUploadArea.addEventListener('dragleave', handleDragLeave);
+            photoUploadArea.addEventListener('drop', handleDrop);
+
+            // Tags
+            tagInput.addEventListener('keypress', handleTagInput);
+            tagInput.addEventListener('blur', addTagFromInput);
+
+            // Form submission
+            form.addEventListener('submit', handleFormSubmit);
+        }
+
+        // Update preview
+        function updatePreview() {
+            const hasContent = checkIfFormHasContent();
+            
+            if (!hasContent) {
+                previewEmpty.style.display = 'block';
+                previewContent.classList.remove('active');
+                return;
+            }
+
+            previewEmpty.style.display = 'none';
+            previewContent.classList.add('active');
+
+            // Update title
+            previewTitle.textContent = titleInput.value || 'Your Property Title';
+            
+            // Update description
+            previewDescription.textContent = descriptionInput.value || 'Your property description will appear here...';
+            
+            // Update guests
+            previewGuests.textContent = guestsInput.value ? `${guestsInput.value} Guests` : '- Guests';
+            
+            // Update check-in/check-out
+            if (checkinInput.value) {
+                const checkinTime = formatTime(checkinInput.value);
+                previewCheckin.textContent = `${checkinTime} Check-in`;
+            } else {
+                previewCheckin.textContent = '- Check-in';
+            }
+            
+            if (checkoutInput.value) {
+                const checkoutTime = formatTime(checkoutInput.value);
+                previewCheckout.textContent = `${checkoutTime} Check-out`;
+            } else {
+                previewCheckout.textContent = '- Check-out';
+            }
+            
+            // Update price
+            if (priceInput.value) {
+                previewPrice.textContent = `$${parseFloat(priceInput.value).toFixed(2)}`;
+            } else {
+                previewPrice.textContent = '$0';
+            }
+            
+            // Update tags
+            updatePreviewTags();
+            
+            // Update amenities
+            updatePreviewAmenities();
+            
+            // Update preview image
+            updatePreviewImage();
+        }
+
+        // Check if form has any content
+        function checkIfFormHasContent() {
+            return titleInput.value.trim() !== '' ||
+                   descriptionInput.value.trim() !== '' ||
+                   guestsInput.value !== '' ||
+                   checkinInput.value !== '' ||
+                   checkoutInput.value !== '' ||
+                   priceInput.value !== '' ||
+                   Array.from(amenitiesInputs).some(input => input.checked) ||
+                   tags.length > 0 ||
+                   uploadedPhotos.length > 0;
+        }
+
+        // Update preview tags
+        function updatePreviewTags() {
+            previewTags.innerHTML = '';
+            if (tags.length === 0) {
+                previewTags.style.display = 'none';
+                return;
+            }
+            previewTags.style.display = 'flex';
+            tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = 'preview-tag';
+                tagElement.textContent = tag;
+                previewTags.appendChild(tagElement);
+            });
+        }
+
+        // Update preview amenities
+        function updatePreviewAmenities() {
+            previewAmenities.innerHTML = '';
+            const selectedAmenities = Array.from(amenitiesInputs)
+                .filter(input => input.checked)
+                .map(input => input.value);
+            
+            if (selectedAmenities.length === 0) {
+                previewAmenities.parentElement.style.display = 'none';
+                return;
+            }
+            
+            previewAmenities.parentElement.style.display = 'block';
+            
+            selectedAmenities.forEach(amenity => {
+                const amenityElement = document.createElement('div');
+                amenityElement.className = 'preview-amenity';
+                
+                const icon = getAmenityIcon(amenity);
+                amenityElement.innerHTML = `<i class="${icon}"></i><span>${amenity}</span>`;
+                previewAmenities.appendChild(amenityElement);
+            });
+        }
+
+        // Get amenity icon
+        function getAmenityIcon(amenity) {
+            const iconMap = {
+                'WiFi': 'fas fa-wifi',
+                'TV': 'fas fa-tv',
+                'Kitchen': 'fas fa-utensils',
+                'Air Conditioning': 'fas fa-snowflake',
+                'Parking': 'fas fa-parking',
+                'Pool': 'fas fa-swimming-pool',
+                'Gym': 'fas fa-dumbbell',
+                'Washer': 'fas fa-tshirt',
+                'Dryer': 'fas fa-wind',
+                'Heating': 'fas fa-fire',
+                'Workspace': 'fas fa-laptop',
+                'Pets Allowed': 'fas fa-paw'
+            };
+            return iconMap[amenity] || 'fas fa-check';
+        }
+
+        // Update preview image
+        function updatePreviewImage() {
+            if (uploadedPhotos.length === 0) {
+                previewImage.innerHTML = `
+                    <div class="preview-image-placeholder">
+                        <i class="fas fa-image" style="font-size: 48px; opacity: 0.3;"></i>
+                        <p>No photos uploaded yet</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const firstPhoto = uploadedPhotos[0];
+            previewImage.innerHTML = `<img src="${firstPhoto.url}" alt="Property photo">`;
+        }
+
+        // Format time
+        function formatTime(timeString) {
+            const [hours, minutes] = timeString.split(':');
+            const hour12 = hours % 12 || 12;
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            return `${hour12}:${minutes} ${ampm}`;
+        }
+
+        // Handle photo upload
+        function handlePhotoUpload(e) {
+            const files = Array.from(e.target.files);
+            processPhotos(files);
+        }
+
+        // Handle drag over
+        function handleDragOver(e) {
+            e.preventDefault();
+            photoUploadArea.classList.add('dragover');
+        }
+
+        // Handle drag leave
+        function handleDragLeave(e) {
+            e.preventDefault();
+            photoUploadArea.classList.remove('dragover');
+        }
+
+        // Handle drop
+        function handleDrop(e) {
+            e.preventDefault();
+            photoUploadArea.classList.remove('dragover');
+            const files = Array.from(e.dataTransfer.files);
+            processPhotos(files);
+        }
+
+        // Process photos
+        function processPhotos(files) {
+            files.forEach(file => {
+                if (!file.type.startsWith('image/')) {
+                    alert('Please upload only image files.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const photo = {
+                        id: Date.now() + Math.random(),
+                        url: e.target.result,
+                        file: file
+                    };
+                    uploadedPhotos.push(photo);
+                    renderPhoto(photo);
+                    updatePreview();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Render photo
+        function renderPhoto(photo) {
+            const photoDiv = document.createElement('div');
+            photoDiv.className = 'uploaded-photo';
+            photoDiv.dataset.photoId = photo.id;
+            
+            const img = document.createElement('img');
+            img.src = photo.url;
+            img.alt = 'Property photo';
+            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-photo';
+            deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+            deleteBtn.onclick = () => {
+                uploadedPhotos = uploadedPhotos.filter(p => p.id !== photo.id);
+                photoDiv.remove();
+                updatePreview();
+            };
+            
+            photoDiv.appendChild(img);
+            photoDiv.appendChild(deleteBtn);
+            uploadedPhotosContainer.appendChild(photoDiv);
+        }
+
+        // Handle tag input
+        function handleTagInput(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addTagFromInput();
+            }
+        }
+
+        // Add tag from input
+        function addTagFromInput() {
+            const tagValue = tagInput.value.trim();
+            if (tagValue && !tags.includes(tagValue)) {
+                tags.push(tagValue);
+                renderTag(tagValue);
+                tagInput.value = '';
+                updatePreview();
+            }
+        }
+
+        // Render tag
+        function renderTag(tag) {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'tag';
+            tagElement.textContent = tag;
+            
+            const removeBtn = document.createElement('span');
+            removeBtn.className = 'remove-tag';
+            removeBtn.textContent = '×';
+            removeBtn.onclick = () => {
+                tags = tags.filter(t => t !== tag);
+                tagElement.remove();
+                updatePreview();
+            };
+            
+            tagElement.appendChild(removeBtn);
+            tagsContainer.insertBefore(tagElement, tagInput);
+        }
+
+        // Handle form submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Collect form data
+            const formData = {
+                title: titleInput.value,
+                description: descriptionInput.value,
+                guests: guestsInput.value,
+                checkin: checkinInput.value,
+                checkout: checkoutInput.value,
+                price: priceInput.value,
+                amenities: Array.from(amenitiesInputs)
+                    .filter(input => input.checked)
+                    .map(input => input.value),
+                tags: tags,
+                photos: uploadedPhotos.map(photo => photo.url)
+            };
+            
+            // Simulate submission
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publishing...';
+            
+            setTimeout(() => {
+                alert('Listing published successfully! (This is a demo - in production, this would save to a database)');
+                console.log('Form Data:', formData);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Publish Listing';
+            }, 2000);
+        }
+
+        // Validate form
+        function validateForm() {
+            let isValid = true;
+            
+            // Clear previous errors
+            document.querySelectorAll('.form-group').forEach(group => {
+                group.classList.remove('error');
+            });
+            
+            // Validate required fields
+            if (!titleInput.value.trim()) {
+                showError(titleInput, 'Title is required');
+                isValid = false;
+            }
+            
+            if (!descriptionInput.value.trim()) {
+                showError(descriptionInput, 'Description is required');
+                isValid = false;
+            }
+            
+            if (!guestsInput.value || guestsInput.value < 1) {
+                showError(guestsInput, 'Please specify number of guests');
+                isValid = false;
+            }
+            
+            if (!checkinInput.value) {
+                showError(checkinInput, 'Check-in time is required');
+                isValid = false;
+            }
+            
+            if (!checkoutInput.value) {
+                showError(checkoutInput, 'Check-out time is required');
+                isValid = false;
+            }
+            
+            if (!priceInput.value || priceInput.value < 0) {
+                showError(priceInput, 'Price is required');
+                isValid = false;
+            }
+            
+            const selectedAmenities = Array.from(amenitiesInputs).filter(input => input.checked);
+            if (selectedAmenities.length === 0) {
+                alert('Please select at least one amenity');
+                isValid = false;
+            }
+            
+            if (uploadedPhotos.length === 0) {
+                alert('Please upload at least one photo');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // Show error
+        function showError(input, message) {
+            const formGroup = input.closest('.form-group');
+            formGroup.classList.add('error');
+            
+            let errorMsg = formGroup.querySelector('.error-message');
+            if (!errorMsg) {
+                errorMsg = document.createElement('div');
+                errorMsg.className = 'error-message';
+                formGroup.appendChild(errorMsg);
+            }
+            errorMsg.textContent = message;
+        }
+
+        // Initialize on load
+        init();
+    </script>
 </body>
 </html>
