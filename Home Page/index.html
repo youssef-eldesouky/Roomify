@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roomify - Find Your Next Stay</title>
+
+    <!-- Bootstrap & FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Chatbot CSS -->
+    <link rel="stylesheet" href="../shared/chatbot.css">
+
+</head>
+<body>
+
+    <!-- Top Header Bar -->
+    <div class="top-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center py-2">
+                <a class="navbar-brand" href="index.html">Roomify</a>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-sm text-white border-0" aria-label="Change currency">EGP</button>
+                    <button class="btn btn-sm text-white border-0 icon-btn" aria-label="Help and support">
+                        <i class="fas fa-question-circle" aria-hidden="true"></i>
+                    </button>
+                    <a href="../listing-page/listing.html" class="btn btn-sm text-white border-0">List your property</a>
+                   <a href="../Roomify-login/login.html?register" class="btn btn-sm white-btn">Register</a>
+                   <a href="../Roomify-login/login.html" class="btn btn-sm white-btn">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <!-- Main navigation items on the left -->
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-bed"></i> Stays</a></li>
+                <li class="nav-item"><a class="nav-link" href="../Flights/flights.html"><i class="fas fa-plane"></i> Flights</a></li>
+                <li class="nav-item"><a class="nav-link" href="../Car Rentals/car-rentals.html"><i class="fas fa-car"></i> Car rentals</a></li>
+                <li class="nav-item"><a class="nav-link" href="../Attractions/attractions.html"><i class="fas fa-suitcase"></i> Attractions</a></li>
+                <li class="nav-item"><a class="nav-link" href="../Airport Taxis/airport-taxis.html"><i class="fas fa-taxi"></i> Airport taxis</a></li>
+                <li class="nav-item"><a class="nav-link book-btn" href="../Booking Form/booking-form.html"><i class="fas fa-calendar-check"></i> Book Now</a></li>
+            </ul>
+            
+            <!-- Profile button on the far right -->
+            <div class="nav nav-pills">
+                <a class="nav-link profile-btn" href="../profile and bookings/profile&bookings.html"><i class="fas fa-user"></i> Profile</a>
+                <a href="../Home Page/index.html" class="btn btn-sm white-btn">Log Out</a>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Roomify your trip</h1>
+            <p class="lead">Explore deals on hotels, homes, and much more...</p>
+        </div>
+    </section>
+
+    <!-- Search Card -->
+    <div class="container">
+        <div class="search-card">
+            <form id="searchForm" action="listing.html" method="GET">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label>Where are you going?</label>
+                        <input type="text" id="destination" name="destination" class="form-control" placeholder="City, hotel, or landmark" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Check-in date</label>
+                        <input type="date" id="checkin" name="checkin" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Check-out date</label>
+                        <input type="date" id="checkout" name="checkout" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Guests</label>
+                        <select id="guests" name="guests" class="form-select">
+                            <option value="1">1 guest</option>
+                            <option value="2" selected>2 guests</option>
+                            <option value="3">3 guests</option>
+                            <option value="4">4 guests</option>
+                            <option value="5+">5+ guests</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-1 d-flex align-items-end">
+                        <a href="../listing-page/listing.html" class="btn btn-search w-100 d-flex justify-content-center align-items-center" style="height: 100%;">
+                            <i class="fas fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Offers Section -->
+    <section class="offers-section">
+        <div class="container">
+            <h2 class="section-title">Offers</h2>
+            <p class="section-subtitle">Promotions, deals, and special offers for you.</p>
+
+            <div class="offers-container">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="offer-card offer-card-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800');">
+                            <div class="offer-content">
+                                <div class="offer-text offer-text-light">
+                                    <span class="offer-category">Late Escape Deals</span>
+                                    <h3 class="offer-title">Go for a good time, not a long time</h3>
+                                    <p class="offer-description">Squeeze out the last bit of sun with at least 15% off</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="offer-card">
+                            <div class="offer-content">
+                                <div class="offer-text">
+                                    <span class="offer-category">Black Friday Deals</span>
+                                    <h3 class="offer-title">Up to 20% off attractions</h3>
+                                    <p class="offer-description">Make exploring easy with savings on select experiences</p>
+                                </div>
+                                <div class="offer-image">
+                                    <div class="offer-badge">20%</div>
+                                    <div class="offer-illustration tower-illustration"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Types Section -->
+    <section class="property-types-section">
+        <div class="container">
+            <h2 class="section-title">Browse by property type</h2>
+
+            <div id="propertyTypesCarousel" class="carousel slide property-types-carousel" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="property-type-card">
+                                    <a href="../listing-page/listing.html" class="property-link"></a>
+                                    <div class="property-image">
+                                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" alt="Hotels">
+                                    </div>
+                                    <div class="property-info">
+                                        <h4 class="property-name">Hotels</h4>
+                                        <p class="property-description">Traditional hotel rooms and suites</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="property-type-card">
+                                    <a href="../listing-page/listing.html" class="property-link"></a>
+                                    <div class="property-image">
+                                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400" alt="Apartments">
+                                    </div>
+                                    <div class="property-info">
+                                        <h4 class="property-name">Apartments</h4>
+                                        <p class="property-description">Fully furnished units</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="property-type-card">
+                                    <a href="../listing-page/listing.html" class="property-link"></a>
+                                    <div class="property-image">
+                                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400" alt="Villas">
+                                    </div>
+                                    <div class="property-info">
+                                        <h4 class="property-name">Villas</h4>
+                                        <p class="property-description">Private standalone homes</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="property-type-card">
+                                    <a href="../listing-page/listing.html" class="property-link"></a>
+                                    <div class="property-image">
+                                        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400" alt="Resorts">
+                                    </div>
+                                    <div class="property-info">
+                                        <h4 class="property-name">Resorts</h4>
+                                        <p class="property-description">Full-service accommodation complexes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="property-type-card">
+                                    <a href="../listing-page/listing.html" class="property-link"></a>
+                                    <div class="property-image">
+                                        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=400" alt="Bed & Breakfast">
+                                    </div>
+                                    <div class="property-info">
+                                        <h4 class="property-name">Bed & Breakfast</h4>
+                                        <p class="property-description">Private stays offering breakfast</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="property-type-card">
+                                    <a href="../listing-page/listing.html" class="property-link"></a>
+                                    <div class="property-image">
+                                        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400" alt="Guest Houses">
+                                    </div>
+                                    <div class="property-info">
+                                        <h4 class="property-name">Guest Houses</h4>
+                                        <p class="property-description">Small host-managed homes</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="property-type-card">
+                                    <a href="../listing-page/listing.html" class="property-link"></a>
+                                    <div class="property-image">
+                                        <img src="https://images.unsplash.com/photo-1543269664-7eef42226a21?w=400" alt="Hostels">
+                                    </div>
+                                    <div class="property-info">
+                                        <h4 class="property-name">Hostels</h4>
+                                        <p class="property-description">Shared, budget-friendly rooms</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev property-control property-control-prev" type="button" data-bs-target="#propertyTypesCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+
+                <button class="carousel-control-next property-control property-control-next" type="button" data-bs-target="#propertyTypesCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stays Section - Published Listings -->
+    <section class="stays-section" id="stays-section">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="section-title">Available Stays</h2>
+                    <p class="section-subtitle">Discover amazing properties from our hosts</p>
+                </div>
+                <div class="filter-buttons">
+                    <button class="btn btn-sm btn-outline-primary filter-btn active" data-filter="all">All</button>
+                    <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="Hotels">Hotels</button>
+                    <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="Apartments">Apartments</button>
+                    <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="Villas">Villas</button>
+                    <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="Resorts">Resorts</button>
+                </div>
+            </div>
+            <div class="listings-grid" id="listings-grid">
+                <!-- Listings will be dynamically inserted here -->
+            </div>
+            <div class="no-listings" id="no-listings" style="display: none; text-align: center; padding: 60px 20px;">
+                <i class="fas fa-home" style="font-size: 64px; color: #ccc; margin-bottom: 20px;"></i>
+                <h3 style="color: #999; margin-bottom: 10px;">No listings available</h3>
+                <p style="color: #999;">Be the first to <a href="../listing-page/listing.html">create a listing</a>!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Destinations -->
+    <section class="destinations-section">
+        <div class="container">
+            <h2 class="section-title">Most popular choices for travelers from Egypt</h2>
+
+            <div class="destinations-grid">
+                <div class="row g-3">
+                    <!-- Top Row: 2 cards -->
+                    <div class="col-md-6">
+                        <div class="destination-card">
+                            <div class="destination-image">
+                                <img src="images/Cairo.jpg" alt="Cairo - Giza Pyramids">
+                                <div class="destination-overlay">
+                                    <div class="destination-info">
+                                       <h3 class="destination-name">Cairo</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="destination-card">
+                            <div class="destination-image">
+                                <img src="images/Hurghada.jpg" alt="Hurghada">
+                                <div class="destination-overlay">
+                                    <div class="destination-info">
+                                      <h3 class="destination-name">Hurghada</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bottom Row: 3 cards -->
+                    <div class="col-md-4">
+                        <div class="destination-card">
+                            <div class="destination-image">
+                                <img src="images/Alexandria.png" alt="Alexandria - Bibliotheca Alexandrina" onerror="this.src='https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&q=80'">
+                                <div class="destination-overlay">
+                                    <div class="destination-info">
+                                       <h3 class="destination-name">Alexandria</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="destination-card">
+                            <div class="destination-image">
+                                <img src="images/Aswan.jpg" alt="Ain Sokhna Beach">
+                                <div class="destination-overlay">
+                                    <div class="destination-info">
+                                    <h3 class="destination-name">Aswan</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="destination-card">
+                            <div class="destination-image">
+                                <img src="images/Dahab.jpg" alt="Dubai">
+                                <div class="destination-overlay">
+                                    <div class="destination-info">
+                                     <h3 class="destination-name">Dahab</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What Our Travelers Say</h2>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Amazing experience! The booking process was seamless."
+                        </p>
+                        <div class="reviewer-info">
+                            <div class="reviewer-avatar">SJ</div>
+                            <div><strong>Sarah Johnson</strong><div class="text-muted small">New York, USA</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="testimonial-text">
+                            "Best travel platform I've used. Great deals!"
+                        </p>
+                        <div class="reviewer-info">
+                            <div class="reviewer-avatar">MC</div>
+                            <div><strong>Michael Chen</strong><div class="text-muted small">London, UK</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="testimonial-text">
+                            "Easy interface and great prices!"
+                        </p>
+                        <div class="reviewer-info">
+                            <div class="reviewer-avatar">EP</div>
+                            <div><strong>Emma Patel</strong><div class="text-muted small">Sydney, Australia</div></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-md-3 mb-4">
+                    <h5>Company</h5>
+                    <a href="javascript:void(0);">About Us</a>
+                    <a href="javascript:void(0);">Project Overview</a>
+                    <a href="javascript:void(0);">Documentation</a>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <h5>Support</h5>
+                    <a href="javascript:void(0);">User Guide</a>
+                    <a href="javascript:void(0);">Technical Support</a>
+                    <a href="javascript:void(0);">Contact Form</a>
+                    <a href="javascript:void(0);">Feedback</a>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <h5>Resources</h5>
+                    <a href="javascript:void(0);">API Documentation</a>
+                    <a href="javascript:void(0);">Terms of Use</a>
+                    <a href="javascript:void(0);">Privacy Policy</a>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-twitter"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-instagram"></i></a>
+                        <a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Roomify. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+    
+    <!-- Chatbot Component -->
+    <button id="chatbot-icon" aria-label="Open chat support" type="button">
+        <i class="fas fa-comments"></i>
+    </button>
+    <div id="chatbot-box">
+        <div id="chatbot-header">
+            <h4>Roomify Assistant</h4>
+            <button id="chatbot-close" aria-label="Close chat">×</button>
+        </div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input-area">
+            <input type="text" id="chatbot-user-input" placeholder="Type your message..." autocomplete="off">
+            <button id="chatbot-send-btn" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Chatbot JS -->
+    <script src="../shared/chatbot.js"></script>
+</body>
+</html>
