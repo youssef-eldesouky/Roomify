@@ -1,6 +1,0 @@
-@Roomify_HostAddress = http://localhost:5120
-
-GET {{Roomify_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
